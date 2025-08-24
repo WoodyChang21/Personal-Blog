@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Woody Chang - AI Agent Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.5s;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.7s;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            opacity: 0.8;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.9s;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+            padding: 80px 0;
+            margin-top: -50px;
+            border-radius: 50px 50px 0 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Articles Section */
+        .articles {
+            background: #f8fafc;
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .framework-section {
+            margin-bottom: 4rem;
+        }
+
+        .framework-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .framework-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .framework-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .semantic-kernel {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .langchain {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .article-number {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .article-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+            padding-right: 3rem;
+        }
+
+        .article-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: #e2e8f0;
+            color: #475569;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #764ba2;
+            gap: 1rem;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-stack::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="0.5" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.8" fill="white" opacity="0.1"/><circle cx="10" cy="90" r="1.2" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+
+        .tech-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .frameworks-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .framework-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .framework-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .framework-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .framework-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .framework-desc {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tech-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a202c;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #667eea;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .frameworks-showcase {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .framework-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .tech-stats {
+                gap: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">Woody Chang</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#articles">Articles</a></li>
+                <li><a href="#tech-stack">Tech Stack</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>AI Agent Journey</h1>
+            <div class="subtitle">Building Intelligent Systems with Semantic Kernel</div>
+            <p class="description">
+                Exploring the frontiers of AI agent development, from memory management evolution to sophisticated role-based access control systems. 
+                Join me on this technical journey through practical implementations and architectural insights.
+            </p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="avatar">WC</div>
+                </div>
+                <div class="about-text">
+                    <h2>About Woody Chang</h2>
+                    <p>
+                        I'm a passionate AI engineer specializing in building sophisticated AI agent systems using Microsoft's Semantic Kernel. 
+                        My expertise lies in creating scalable, secure, and intelligent conversational AI solutions that bridge the gap between 
+                        complex technical implementations and practical business applications.
+                    </p>
+                    <p>
+                        Through my technical articles, I share deep insights into advanced AI agent architecture, memory management systems, 
+                        and enterprise-level security implementations. My work focuses on solving real-world challenges in AI agent development, 
+                        particularly in areas of context management, role-based access control, and multi-tool integration.
+                    </p>
+                    <div class="skills">
+                        <span class="skill-tag">Semantic Kernel</span>
+                        <span class="skill-tag">AI Agents</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">LLM Integration</span>
+                        <span class="skill-tag">System Architecture</span>
+                        <span class="skill-tag">RBAC</span>
+                        <span class="skill-tag">Memory Management</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section id="articles" class="articles">
+        <div class="container">
+            <h2 class="section-title">Technical Articles</h2>
+            
+            <!-- Semantic Kernel Section -->
+            <div class="framework-section">
+                <div class="framework-header">
+                    <div class="framework-icon semantic-kernel">SK</div>
+                    <h3 class="framework-title">Semantic Kernel Explorations</h3>
+                </div>
+                <div class="articles-grid">
+                    <!-- Article 1 - Basic Agent -->
+                    <article class="article-card fade-in">
+                        <div class="article-number">01</div>
+                        <h3>Creating AI Agents with Semantic Kernel</h3>
+                        <div class="article-tags">
+                            <span class="tag">Architecture</span>
+                            <span class="tag">Plugin System</span>
+                            <span class="tag">Function Calling</span>
+                        </div>
+                        <p>
+                            A comprehensive guide to building highly scalable and flexible AI Agent systems using Microsoft Semantic Kernel. 
+                            This article explores the evolution from multi-agent architectures to a single agent with multiple plugin tools approach, 
+                            demonstrating superior handling of multi-intent queries and enhanced system flexibility.
+                        </p>
+                        <a href="https://hackmd.io/@WoodyChang1121/BkEXT_zHxl" class="read-more" target="_blank">
+                            Read Full Article →
+                        </a>
+                    </article>
+
+                    <!-- Article 2 - Memory Management -->
+                    <article class="article-card fade-in">
+                        <div class="article-number">02</div>
+                        <h3>Memory Management Evolution: Redis to ChatHistoryAgentThread</h3>
+                        <div class="article-tags">
+                            <span class="tag">Memory Management</span>
+                            <span class="tag">ChatHistory</span>
+                            <span class="tag">Context Preservation</span>
+                        </div>
+                        <p>
+                            Deep dive into the evolution of conversation memory management systems. This technical report covers the structural 
+                            limitations of Redis-based storage and introduces the revolutionary ChatHistoryAgentThread architecture for superior 
+                            context preservation, tool call tracking, and personalized user experiences.
+                        </p>
+                        <a href="https://hackmd.io/@WoodyChang1121/BJoXWPmHgl" class="read-more" target="_blank">
+                            Read Full Article →
+                        </a>
+                    </article>
+
+                    <!-- Article 3 - RBAC -->
+                    <article class="article-card fade-in">
+                        <div class="article-number">03</div>
+                        <h3>User Permission System - RBAC Implementation</h3>
+                        <div class="article-tags">
+                            <span class="tag">RBAC</span>
+                            <span class="tag">Security</span>
+                            <span class="tag">Authentication</span>
+                        </div>
+                        <p>
+                            Complete implementation of Role-Based Access Control (RBAC) system for LINE chatbot applications using Semantic Kernel agents. 
+                            Features dual authentication through email verification, function-level access control based on user roles, and comprehensive 
+                            security considerations for enterprise deployment.
+                        </p>
+                        <a href="https://hackmd.io/@WoodyChang1121/ryfZCX5Heg" class="read-more" target="_blank">
+                            Read Full Article →
+                        </a>
+                    </article>
+                </div>
+            </div>
+
+            <!-- LangChain Section -->
+            <div class="framework-section">
+                <div class="framework-header">
+                    <div class="framework-icon langchain">🦜</div>
+                    <h3 class="framework-title">LangChain Explorations</h3>
+                </div>
+                <div class="articles-grid">
+                    <!-- Article 4 - RAG -->
+                    <article class="article-card fade-in">
+                        <div class="article-number">04</div>
+                        <h3>Advanced RAG with LangChain LangGraph</h3>
+                        <div class="article-tags">
+                            <span class="tag">RAG</span>
+                            <span class="tag">LangGraph</span>
+                            <span class="tag">Information Retrieval</span>
+                        </div>
+                        <p>
+                            Exploring advanced Retrieval-Augmented Generation techniques using LangChain's LangGraph framework. 
+                            This article delves into sophisticated information retrieval patterns and graph-based reasoning for enhanced AI responses, 
+                            demonstrating complex workflow orchestration and multi-step reasoning processes.
+                        </p>
+                        <a href="https://hackmd.io/@WoodyChang1121/SkFd4yJulg" class="read-more" target="_blank">
+                            Read Full Article →
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack & Expertise -->
+    <section id="tech-stack" class="tech-stack">
+        <div class="container">
+            <div class="tech-content">
+                <h2 class="section-title" style="color: white;">Tech Stack & Expertise</h2>
+                <p style="text-align: center; font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem;">
+                    Deep expertise across cutting-edge AI frameworks and enterprise-grade implementations
+                </p>
+                
+                <div class="frameworks-showcase">
+                    <!-- Semantic Kernel -->
+                    <div class="framework-card fade-in">
+                        <div class="framework-logo">SK</div>
+                        <h3 class="framework-name">Semantic Kernel</h3>
+                        <p class="framework-desc">
+                            Enterprise AI Agent Systems with production-ready features, security, and scalability
+                        </p>
+                        <div class="skills-grid">
+                            <div class="skill-item">Agent Architecture</div>
+                            <div class="skill-item">Plugin Systems</div>
+                            <div class="skill-item">Memory Management</div>
+                            <div class="skill-item">RBAC Security</div>
+                            <div class="skill-item">Function Calling</div>
+                            <div class="skill-item">Context Preservation</div>
+                        </div>
+                    </div>
+
+                    <!-- LangChain -->
+                    <div class="framework-card fade-in">
+                        <div class="framework-logo">🦜</div>
+                        <h3 class="framework-name">LangChain</h3>
+                        <p class="framework-desc">
+                            Advanced RAG systems and graph-based reasoning for complex information retrieval workflows
+                        </p>
+                        <div class="skills-grid">
+                            <div class="skill-item">Advanced RAG</div>
+                            <div class="skill-item">LangGraph</div>
+                            <div class="skill-item">Workflow Orchestration</div>
+                            <div class="skill-item">Graph Reasoning</div>
+                            <div class="skill-item">Multi-Step Processing</div>
+                            <div class="skill-item">Information Retrieval</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-stats">
+                    <div class="stat-item fade-in">
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Technical Articles</span>
+                    </div>
+                    <div class="stat-item fade-in">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">AI Frameworks</span>
+                    </div>
+                    <div class="stat-item fade-in">
+                        <span class="stat-number">6+</span>
+                        <span class="stat-label">Core Technologies</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="#" title="GitHub">📧</a>
+                <a href="#" title="LinkedIn">💼</a>
+                <a href="#" title="Twitter">🐦</a>
+            </div>
+            <p>&copy; 2025 Woody Chang. Building the future of AI agents, one line of code at a time.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Article card hover effects
+        document.querySelectorAll('.article-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Dynamic gradient background
+        let gradientAngle = 135;
+        setInterval(() => {
+            gradientAngle += 1;
+            if (gradientAngle > 225) gradientAngle = 135;
+            document.body.style.background = `linear-gradient(${gradientAngle}deg, #667eea 0%, #764ba2 100%)`;
+        }, 100);
+    </script>
+</body>
+</html>
