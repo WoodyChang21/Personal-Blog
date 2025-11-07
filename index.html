@@ -280,6 +280,129 @@
             font-weight: 500;
         }
 
+        /* Featured Projects Section */
+        .featured-projects {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-projects::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="featured-dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23featured-dots)"/></svg>');
+        }
+
+        .featured-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-projects .section-title {
+            color: white;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .featured-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .featured-project-card {
+            background: white;
+            border-radius: 25px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #f093fb, #f5576c, #4facfe) border-box;
+        }
+
+        .featured-project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .featured-project-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 30px 80px rgba(102, 126, 234, 0.4);
+        }
+
+        .featured-project-number {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.4rem;
+            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.5);
+        }
+
+        .featured-project-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #333;
+            padding-right: 4rem;
+            line-height: 1.3;
+        }
+
+        .featured-project-card .article-tags {
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-project-card p {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .featured-project-card .article-links {
+            gap: 1rem;
+        }
+
+        .featured-project-card .article-link {
+            flex: 1;
+            min-width: 140px;
+        }
+
         /* Articles Section */
         .articles {
             background: #f8fafc;
@@ -366,6 +489,60 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
+        /* Featured Project Styling */
+        .article-card.featured {
+            border: 2px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #667eea, #764ba2, #f093fb) border-box;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.25);
+        }
+
+        .article-card.featured::before {
+            height: 6px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .article-card.featured:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.35);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -0.5rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            z-index: 5;
+        }
+
+        .featured-badge::before {
+            content: '⭐';
+            font-size: 0.9rem;
+        }
+
+        .article-card.featured .article-number {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+
         .article-number {
             position: absolute;
             top: 1rem;
@@ -423,6 +600,49 @@
         .read-more:hover {
             color: #764ba2;
             gap: 1rem;
+        }
+
+        .article-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .article-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            min-height: 40px;
+            box-sizing: border-box;
+        }
+
+        .article-link.primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .article-link.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .article-link.secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+        }
+
+        .article-link.secondary:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
         }
 
         /* Tech Stack */
@@ -653,6 +873,7 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#featured">Featured</a></li>
                 <li><a href="#articles">Articles</a></li>
                 <li><a href="#tech-stack">Tech Stack</a></li>
             </ul>
@@ -708,10 +929,96 @@
                         <span class="skill-tag">MCP</span>
                         <span class="skill-tag">Semantic Kernel</span>
                         <span class="skill-tag">AI Agents</span>
-                        <span class="skill-tag">Orchestration</span>
+                        <span class="skill-tag">Multi-Agent System</span>
                         <span class="skill-tag">RAG</span>
-                        <span class="skill-tag">Function Calling</span>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section id="featured" class="featured-projects">
+        <div class="container">
+            <div class="featured-content">
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="featured-subtitle">
+                    Showcasing my most comprehensive and well-documented projects with production-ready implementations, 
+                    detailed guides, and organized repositories.
+                </p>
+                
+                <div class="featured-grid">
+                    <!-- Featured Project 1 - MCP Fundamentals -->
+                    <article class="featured-project-card fade-in">
+                        <div class="featured-project-number">01</div>
+                        <h3>MCP Fundamentals: Building Your First Server</h3>
+                        <div class="article-tags">
+                            <span class="tag">MCP</span>
+                            <span class="tag">Protocol</span>
+                            <span class="tag">Server Development</span>
+                            <span class="tag">AI Architecture</span>
+                        </div>
+                        <p>
+                            A comprehensive introduction to the Model Context Protocol (MCP) - the standardized way to connect AI agents with external tools and data sources. Learn to build your first MCP server from scratch, understand the protocol architecture, and explore hands-on examples that demonstrate the power of modular AI systems.
+                        </p>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/@WoodyChang1121/BkZqYuG9lx" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                            <a href="https://github.com/WoodyChang21/MCP" class="article-link secondary" target="_blank">
+                                View GitHub
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Featured Project 2 - MCP + LangChain -->
+                    <article class="featured-project-card fade-in">
+                        <div class="featured-project-number">02</div>
+                        <h3>MCP + LangChain: From NPX Servers to Production Applications</h3>
+                        <div class="article-tags">
+                            <span class="tag">MCP</span>
+                            <span class="tag">LangChain</span>
+                            <span class="tag">Integration</span>
+                            <span class="tag">Production</span>
+                            <span class="tag">Streamlit</span>
+                        </div>
+                        <p>
+                            Discover how to connect LangChain agents to pre-built MCP servers and build production-ready AI applications. This guide covers everything from NPX server integration to creating interactive Streamlit applications with real-time data visualization using the Tako MCP server.
+                        </p>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/@WoodyChang1121/S11Tazrcge" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                            <a href="https://github.com/WoodyChang21/MCP" class="article-link secondary" target="_blank">
+                                View GitHub
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Featured Project 3 - SQL Agent System -->
+                    <article class="featured-project-card fade-in">
+                        <div class="featured-project-number">06</div>
+                        <h3>AI-Powered SQL and Visualization: Building Multi-Agent Systems with UI Deployment</h3>
+                        <div class="article-tags">
+                            <span class="tag">Multi-Agent</span>
+                            <span class="tag">LangGraph</span>
+                            <span class="tag">SQL</span>
+                            <span class="tag">Visualization</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">Redis</span>
+                        </div>
+                        <p>
+                            Build a production-ready multi-agent system with LangGraph where specialized agents handle SQL queries and data visualization through intelligent coordination—then deploy it two ways: LangGraph CLI with Agent Chat UI for rapid prototyping, or Docker Compose with Open WebUI for production. Master agent orchestration, Redis persistence, and flexible deployment strategies in one comprehensive guide.
+                        </p>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/@WoodyChang1121/SkJ0nysk-l" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                            <a href="https://github.com/WoodyChang21/langgraph_data_swarm" class="article-link secondary" target="_blank">
+                                View GitHub
+                            </a>
+                        </div>
+                    </article>
                 </div>
             </div>
         </div>
@@ -730,7 +1037,8 @@
                 </div>
                 <div class="articles-grid">
                     <!-- Article 1 - MCP Fundamentals -->
-                    <article class="article-card fade-in">
+                    <article class="article-card featured fade-in">
+                        <div class="featured-badge">Featured</div>
                         <div class="article-number">01</div>
                         <h3>MCP Fundamentals: Building Your First Server</h3>
                         <div class="article-tags">
@@ -742,13 +1050,19 @@
                         <p>
                             A comprehensive introduction to the Model Context Protocol (MCP) - the standardized way to connect AI agents with external tools and data sources. Learn to build your first MCP server from scratch, understand the protocol architecture, and explore hands-on examples that demonstrate the power of modular AI systems.
                         </p>
-                        <a href="https://hackmd.io/@WoodyChang1121/BkZqYuG9lx" class="read-more" target="_blank">
-                            Read Full Article →
-                        </a>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/@WoodyChang1121/BkZqYuG9lx" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                            <a href="https://github.com/WoodyChang21/MCP" class="article-link secondary" target="_blank">
+                                View GitHub
+                            </a>
+                        </div>
                     </article>
                     
                     <!-- Article 2 - MCP + LangChain Integration -->
-                    <article class="article-card fade-in">
+                    <article class="article-card featured fade-in">
+                        <div class="featured-badge">Featured</div>
                         <div class="article-number">02</div>
                         <h3>MCP + LangChain: From NPX Servers to Production Applications</h3>
                         <div class="article-tags">
@@ -761,9 +1075,14 @@
                         <p>
                             Discover how to connect LangChain agents to pre-built MCP servers and build production-ready AI applications. This guide covers everything from NPX server integration to creating interactive Streamlit applications with real-time data visualization using the Tako MCP server.
                         </p>
-                        <a href="https://hackmd.io/@WoodyChang1121/S11Tazrcge" class="read-more" target="_blank">
-                            Read Full Article →
-                        </a>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/@WoodyChang1121/S11Tazrcge" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                            <a href="https://github.com/WoodyChang21/MCP" class="article-link secondary" target="_blank">
+                                View GitHub
+                            </a>
+                        </div>
                     </article>
                 </div>
             </div>
@@ -778,7 +1097,7 @@
                     <!-- Article 3 - RAG -->
                     <article class="article-card fade-in">
                         <div class="article-number">03</div>
-                        <h3>Advanced RAG with LangChain LangGraph</h3>
+                        <h3>LangGraph Advanced RAG with Self Evaluation</h3>
                         <div class="article-tags">
                             <span class="tag">RAG</span>
                             <span class="tag">LangGraph</span>
@@ -789,15 +1108,20 @@
                             This article delves into sophisticated information retrieval patterns and graph-based reasoning for enhanced AI responses, 
                             demonstrating complex workflow orchestration and multi-step reasoning processes.
                         </p>
-                        <a href="https://hackmd.io/@WoodyChang1121/SkFd4yJulg" class="read-more" target="_blank">
-                            Read Full Article →
-                        </a>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/@WoodyChang1121/SkFd4yJulg" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                            <a href="https://github.com/WoodyChang21/LangGraph-Advanced-RAG" class="article-link secondary" target="_blank">
+                                View GitHub
+                            </a>
+                        </div>
                     </article>
                     
                     <!-- Article 4 - New LangGraph Blog -->
                     <article class="article-card fade-in">
                         <div class="article-number">04</div>
-                        <h3>Natural Language to MongoDB with Auto-Generated Charts</h3>
+                        <h3>MongoDB Query & Visualization with NL</h3>
                         <div class="article-tags">
                             <span class="tag">LangGraph</span>
                             <span class="tag">MongoDB</span>
@@ -807,9 +1131,11 @@
                         <p>
                             Learn how to build an end-to-end pipeline with LangGraph that converts plain English questions into MongoDB queries and automatically generates Python code to produce visual charts. A hands-on guide to combining data retrieval, code generation, and safe execution.
                         </p>
-                        <a href="https://hackmd.io/@WoodyChang1121/BybWgQ3Ygx" class="read-more" target="_blank">
-                            Read Full Article →
-                        </a>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/@WoodyChang1121/BybWgQ3Ygx" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                        </div>
                     </article>
 
                     <!-- Article 5 - RAG Chatbot -->
@@ -825,9 +1151,40 @@
                         <p>
                             Comprehensive implementation of a document-aware chatbot using LangChain for web crawling, document processing, and Retrieval-Augmented Generation. Features intelligent document ingestion, semantic search capabilities, and context-aware responses for enhanced user interactions.
                         </p>
-                        <a href="#" class="read-more" target="_blank">
-                            Read Full Article →
-                        </a>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/zpwWNdhHTz-Aj9JEHjpqkA" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                            <a href="https://github.com/WoodyChang21/LangGraph_RAG_Chatbot" class="article-link secondary" target="_blank">
+                                View GitHub
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Article 6 - SQL and Visualization Multi-Agent -->
+                    <article class="article-card featured fade-in">
+                        <div class="featured-badge">Featured</div>
+                        <div class="article-number">06</div>
+                        <h3>AI-Powered SQL and Visualization: Building Multi-Agent Systems with UI Deployment</h3>
+                        <div class="article-tags">
+                            <span class="tag">Multi-Agent</span>
+                            <span class="tag">LangGraph</span>
+                            <span class="tag">SQL</span>
+                            <span class="tag">Visualization</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">Redis</span>
+                        </div>
+                        <p>
+                            Build a production-ready multi-agent system with LangGraph where specialized agents handle SQL queries and data visualization through intelligent coordination—then deploy it two ways: LangGraph CLI with Agent Chat UI for rapid prototyping, or Docker Compose with Open WebUI for production. Master agent orchestration, Redis persistence, and flexible deployment strategies in one comprehensive guide.
+                        </p>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/@WoodyChang1121/SkJ0nysk-l" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                            <a href="https://github.com/WoodyChang21/langgraph_data_swarm" class="article-link secondary" target="_blank">
+                                View GitHub
+                            </a>
+                        </div>
                     </article>
                 </div>
             </div>
@@ -839,9 +1196,9 @@
                     <h3 class="framework-title">Semantic Kernel Explorations</h3>
                 </div>
                 <div class="articles-grid">
-                    <!-- Article 6 - Basic Agent -->
+                    <!-- Article 7 - Basic Agent -->
                     <article class="article-card fade-in">
-                        <div class="article-number">06</div>
+                        <div class="article-number">07</div>
                         <h3>Creating AI Agents with Semantic Kernel</h3>
                         <div class="article-tags">
                             <span class="tag">Architecture</span>
@@ -853,14 +1210,16 @@
                             This article explores the evolution from multi-agent architectures to a single agent with multiple plugin tools approach, 
                             demonstrating superior handling of multi-intent queries and enhanced system flexibility.
                         </p>
-                        <a href="https://hackmd.io/@WoodyChang1121/BkEXT_zHxl" class="read-more" target="_blank">
-                            Read Full Article →
-                        </a>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/@WoodyChang1121/BkEXT_zHxl" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                        </div>
                     </article>
 
-                    <!-- Article 7 - Memory Management -->
+                    <!-- Article 8 - Memory Management -->
                     <article class="article-card fade-in">
-                        <div class="article-number">07</div>
+                        <div class="article-number">08</div>
                         <h3>Memory Management Evolution: Redis to ChatHistoryAgentThread</h3>
                         <div class="article-tags">
                             <span class="tag">Memory Management</span>
@@ -872,14 +1231,16 @@
                             limitations of Redis-based storage and introduces the revolutionary ChatHistoryAgentThread architecture for superior 
                             context preservation, tool call tracking, and personalized user experiences.
                         </p>
-                        <a href="https://hackmd.io/@WoodyChang1121/BJoXWPmHgl" class="read-more" target="_blank">
-                            Read Full Article →
-                        </a>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/@WoodyChang1121/BJoXWPmHgl" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                        </div>
                     </article>
 
-                    <!-- Article 8 - RBAC -->
+                    <!-- Article 9 - RBAC -->
                     <article class="article-card fade-in">
-                        <div class="article-number">08</div>
+                        <div class="article-number">09</div>
                         <h3>User Permission System - RBAC Implementation</h3>
                         <div class="article-tags">
                             <span class="tag">RBAC</span>
@@ -891,9 +1252,11 @@
                             Features dual authentication through email verification, function-level access control based on user roles, and comprehensive 
                             security considerations for enterprise deployment.
                         </p>
-                        <a href="https://hackmd.io/@WoodyChang1121/ryfZCX5Heg" class="read-more" target="_blank">
-                            Read Full Article →
-                        </a>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/@WoodyChang1121/ryfZCX5Heg" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                        </div>
                     </article>
                 </div>
             </div>
@@ -905,9 +1268,9 @@
                     <h3 class="framework-title">Prompt Engineering</h3>
                 </div>
                 <div class="articles-grid">
-                    <!-- Article 9 - Prompt Engineering -->
+                    <!-- Article 10 - Prompt Engineering -->
                     <article class="article-card fade-in">
-                        <div class="article-number">09</div>
+                        <div class="article-number">10</div>
                         <h3>Prompt Engineering: A Practical Guide to Effective LLM Prompts</h3>
                         <div class="article-tags">
                             <span class="tag">Prompt Engineering</span>
@@ -918,9 +1281,11 @@
                         <p>
                             Prompt engineering is the art and science of designing inputs that steer large language models (LLMs) toward reliable, accurate, and useful outputs. This guide introduces the anatomy of a prompt, explains common prompting paradigms (Zero-Shot, Few-Shot, Chain-of-Thought, ReAct), and shares practical techniques and templates you can use immediately.
                         </p>
-                        <a href="https://hackmd.io/@WoodyChang1121/ByiuVVgcel" class="read-more" target="_blank">
-                            Read Full Article →
-                        </a>
+                        <div class="article-links">
+                            <a href="https://hackmd.io/@WoodyChang1121/ByiuVVgcel" class="article-link primary" target="_blank">
+                                Read Article
+                            </a>
+                        </div>
                     </article>
                 </div>
             </div>
@@ -975,7 +1340,7 @@
 
                 <div class="tech-stats">
                     <div class="stat-item fade-in">
-                        <span class="stat-number">9</span>
+                        <span class="stat-number">10</span>
                         <span class="stat-label">Technical Articles</span>
                     </div>
                     <div class="stat-item fade-in">
