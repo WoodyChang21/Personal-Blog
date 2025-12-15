@@ -586,40 +586,52 @@
     </footer>
 
     <script>
-        // Visitor counter (CountAPI replacement)
         async function updateVisitorCount() {
             const el = document.getElementById("visitor-count");
             if (!el) return;
 
-            // Use a unique key. I recommend your domain as part of it.
-            const key = "woodychang.ai::visitor-count";
+            const counterKey = "woodychang.ai::visitor-count";
+            const storageKey = "visitor_counted_yyyymmdd";
+
+            // "unique per day" marker (in the visitor's local time)
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = String(now.getMonth() + 1).padStart(2, "0");
+            const d = String(now.getDate()).padStart(2, "0");
+            const today = `${y}${m}${d}`;
+
+            let shouldHit = false;
 
             try {
-                // Increment by 1
-                const hitRes = await fetch("https://countapi.maayanlab.cloud/rpc/hit", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ key })
-                });
+                // Decide whether to increment (count unique today)
+                const lastCounted = localStorage.getItem(storageKey);
+                if (lastCounted !== today) {
+                    shouldHit = true;
+                    localStorage.setItem(storageKey, today);
+                }
+            } catch (e) {
+                // If storage is blocked, fall back to counting the visit
+                shouldHit = true;
+            }
 
-                if (!hitRes.ok) {
-                    const t = await hitRes.text();
-                    throw new Error(`HIT failed: HTTP ${hitRes.status} ${t}`);
+            try {
+                if (shouldHit) {
+                    const hitRes = await fetch("https://countapi.maayanlab.cloud/rpc/hit", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ key: counterKey })
+                    });
+                    if (!hitRes.ok) throw new Error(`HIT failed: HTTP ${hitRes.status}`);
                 }
 
-                // Read current value
                 const getRes = await fetch(
-                    `https://countapi.maayanlab.cloud/rpc/get?key=${encodeURIComponent(key)}`
+                    `https://countapi.maayanlab.cloud/rpc/get?key=${encodeURIComponent(counterKey)}`
                 );
-
-                if (!getRes.ok) {
-                    const t = await getRes.text();
-                    throw new Error(`GET failed: HTTP ${getRes.status} ${t}`);
-                }
+                if (!getRes.ok) throw new Error(`GET failed: HTTP ${getRes.status}`);
 
                 const data = await getRes.json();
 
-                // Their endpoint returns a number (or an object containing it depending on deployment)
+                // Endpoint can return either a number or an object-ish structure
                 const value =
                     typeof data === "number" ? data :
                     typeof data?.[0]?.get === "number" ? data[0].get :
