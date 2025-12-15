@@ -586,25 +586,58 @@
     </footer>
 
     <script>
-        // Visitor counter using CountAPI
+        // Visitor counter (CountAPI replacement)
         async function updateVisitorCount() {
-            const namespace = 'woodychang-blog';
-            const key = 'visitor-count';
-            const apiUrl = `https://api.countapi.xyz/hit/${namespace}/${key}`;
-            
+            const el = document.getElementById("visitor-count");
+            if (!el) return;
+
+            // Use a unique key. I recommend your domain as part of it.
+            const key = "woodychang.ai::visitor-count";
+
             try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                if (data.value !== undefined) {
-                    document.getElementById('visitor-count').textContent = data.value.toLocaleString();
+                // Increment by 1
+                const hitRes = await fetch("https://countapi.maayanlab.cloud/rpc/hit", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ key })
+                });
+
+                if (!hitRes.ok) {
+                    const t = await hitRes.text();
+                    throw new Error(`HIT failed: HTTP ${hitRes.status} ${t}`);
                 }
-            } catch (error) {
-                console.error('Error updating visitor count:', error);
-                document.getElementById('visitor-count').textContent = '—';
+
+                // Read current value
+                const getRes = await fetch(
+                    `https://countapi.maayanlab.cloud/rpc/get?key=${encodeURIComponent(key)}`
+                );
+
+                if (!getRes.ok) {
+                    const t = await getRes.text();
+                    throw new Error(`GET failed: HTTP ${getRes.status} ${t}`);
+                }
+
+                const data = await getRes.json();
+
+                // Their endpoint returns a number (or an object containing it depending on deployment)
+                const value =
+                    typeof data === "number" ? data :
+                    typeof data?.[0]?.get === "number" ? data[0].get :
+                    typeof data?.value === "number" ? data.value :
+                    null;
+
+                el.textContent = (value ?? 0).toLocaleString();
+            } catch (err) {
+                console.error("Visitor counter error:", err);
+                el.textContent = "—";
             }
         }
-        
-        updateVisitorCount();
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", updateVisitorCount);
+        } else {
+            updateVisitorCount();
+        }
     </script>
 
 </body>
