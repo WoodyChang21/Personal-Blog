@@ -7,7 +7,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:opsz,wght@9..40,400;500;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:opsz,wght@9..40,400;500;700&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
     :root {
@@ -19,11 +22,9 @@
       --font-body: 'DM Sans', sans-serif;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
 
     body {
       background-color: var(--bg-color);
@@ -33,20 +34,15 @@
       overflow-x: hidden;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Make anchor jumps nicer with sticky nav */
+    section { scroll-margin-top: 96px; }
 
     /* --- UTILITY CLASSES --- */
-    .container {
-      max-width: 100%;
-      padding: 0 4%;
-    }
+    .container { max-width: 100%; padding: 0 4%; }
 
-    .border-bottom {
-      border-bottom: 2px solid var(--border-color);
-    }
+    .border-bottom { border-bottom: 2px solid var(--border-color); }
 
     .btn {
       display: inline-block;
@@ -60,20 +56,11 @@
       border: 2px solid #000;
     }
 
-    .btn:hover {
-      background: #fff;
-      color: #000;
-    }
+    .btn:hover { background: #fff; color: #000; }
 
-    .btn-outline {
-      background: transparent;
-      color: #000;
-    }
+    .btn-outline { background: transparent; color: #000; }
 
-    .btn-outline:hover {
-      background: #000;
-      color: #fff;
-    }
+    .btn-outline:hover { background: #000; color: #fff; }
 
     /* --- NAVIGATION --- */
     nav {
@@ -103,9 +90,7 @@
       font-size: 0.9rem;
     }
 
-    .nav-menu a:hover {
-      text-decoration: underline;
-    }
+    .nav-menu a:hover { text-decoration: underline; }
 
     /* --- HERO SECTION --- */
     .hero {
@@ -182,9 +167,61 @@
       line-height: 1;
     }
 
-    .intro-text p {
-      margin-bottom: 1.5rem;
-      font-size: 1.1rem;
+    .intro-text p { margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+    /* ============================
+       CLEAR SECTION SEPARATION
+       ============================ */
+
+    /* Wrapper for each "chapter" */
+    .section-wrap { border-bottom: 2px solid var(--border-color); }
+    .section-wrap--projects { background: #fff; }
+    .section-wrap--agents { background: var(--accent-gray); }
+
+    /* Big chapter header */
+    .section-hero {
+      padding: 5.5rem 4%;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .section-kicker {
+      display: inline-block;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-hero h2 {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      line-height: 0.95;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-hero p {
+      max-width: 860px;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #333;
+    }
+
+    /* Dark variant for Agents header (hard visual break) */
+    .section-hero--dark {
+      background: #000;
+      color: #fff;
+    }
+
+    .section-hero--dark p { color: #ddd; }
+    .section-hero--dark .section-kicker { opacity: 0.95; }
+
+    /* Optional thick divider bar between the two worlds */
+    .hard-divider {
+      height: 14px;
+      background: #000;
+      border-bottom: 2px solid var(--border-color);
     }
 
     /* --- CATEGORY LAYOUT --- */
@@ -238,9 +275,7 @@
       transition: all 0.2s;
     }
 
-    .article-item:first-child {
-      border-top: 1px solid #ccc;
-    }
+    .article-item:first-child { border-top: 1px solid #ccc; }
 
     .article-item:hover {
       padding-left: 1rem;
@@ -298,7 +333,7 @@
       border-bottom-color: #000;
     }
 
-    /* Small label to distinguish Projects vs Articles while reusing layout */
+    /* Label to distinguish Projects vs Articles */
     .section-label {
       font-family: var(--font-head);
       text-transform: uppercase;
@@ -331,32 +366,21 @@
       border-bottom: 2px solid transparent;
     }
 
-    .social-links a:hover {
-      border-bottom: 2px solid #fff;
-    }
+    .social-links a:hover { border-bottom: 2px solid #fff; }
 
     /* Responsive */
     @media (max-width: 900px) {
-      .category-row {
-        grid-template-columns: 1fr;
-      }
+      .category-row { grid-template-columns: 1fr; }
       .cat-info {
         border-right: none;
         border-bottom: 2px solid var(--border-color);
         padding: 3rem 4%;
       }
-      .cat-articles {
-        padding: 2rem 4%;
-      }
-      .intro-section {
-        grid-template-columns: 1fr;
-      }
-      h1 {
-        font-size: 3.5rem;
-      }
-      .nav-menu {
-        display: none;
-      }
+      .cat-articles { padding: 2rem 4%; }
+      .intro-section { grid-template-columns: 1fr; }
+      h1 { font-size: 3.5rem; }
+      .nav-menu { display: none; }
+      .section-hero { padding: 4rem 4%; }
     }
   </style>
 </head>
@@ -367,7 +391,7 @@
     <div class="nav-menu">
       <a href="#about">About</a>
       <a href="#projects">Deep Learning</a>
-      <a href="#articles">Agents</a>
+      <a href="#agents">AI Agents</a>
       <a href="#contact">Contact Me</a>
       <a href="resume.pdf" target="_blank">Resume</a>
     </div>
@@ -376,18 +400,18 @@
 
   <header class="hero">
     <span class="hero-label">Building systems that learn and systems that act</span>
-  
+
     <h1>AI Journey</h1>
-  
+
     <p class="hero-desc">
-        A living log of my engineering work from deep learning projects in language and vision to building LLM agents step by step.
-        <br><br>
-        Minimal write-ups. Reproducible code. Practical lessons.
+      A living log of my engineering work from deep learning projects in language and vision to building LLM agents step by step.
+      <br /><br />
+      Minimal write-ups. Reproducible code. Practical lessons.
     </p>
-  
+
     <div class="hero-cta">
       <a href="#projects" class="btn">DL Projects</a>
-      <a href="#articles" class="btn btn-outline">Agent Articles</a>
+      <a href="#agents" class="btn btn-outline">AI Agents</a>
     </div>
   </header>
 
@@ -408,6 +432,7 @@
         This website is not a portfolio for clients—it is a living document of my technical growth. I share insights into advanced agent architecture, deep learning projects (NLP, computer vision, generative models), emerging technologies, and enterprise-level implementations.
       </p>
     </div>
+
     <div class="intro-stats">
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
         <div>
@@ -427,272 +452,318 @@
   </section>
 
   <!-- ===================== -->
-  <!-- PROJECTS (NEW SECTION) -->
+  <!-- PROJECTS CHAPTER -->
   <!-- ===================== -->
-  <section id="projects" class="category-section">
+  <section id="projects" class="section-wrap section-wrap--projects">
+    <div class="section-hero">
+      <span class="section-kicker">Chapter 01</span>
+      <h2>Deep Learning Projects</h2>
+      <p>
+        End-to-end ML work in language and vision — training, evaluation, and reproducible code.
+        These are “model-building” projects: datasets → experiments → results.
+      </p>
+    </div>
 
-    <!-- NLP Projects -->
-    <div class="category-row">
-      <div class="cat-info">
-        <div>
-          <div class="section-label">Projects</div>
-          <h3 class="cat-title">Natural Language Processing</h3>
+    <div class="category-section">
+      <!-- NLP Projects -->
+      <div class="category-row">
+        <div class="cat-info">
+          <div>
+            <div class="section-label">Projects</div>
+            <h3 class="cat-title">Natural Language Processing</h3>
+          </div>
+          <div class="cat-desc">
+            <p>Applied NLP implementations—from classic sentiment modeling to modern Transformer-based pipelines. Focused on end-to-end training, evaluation, and reproducibility.</p>
+          </div>
         </div>
-        <div class="cat-desc">
-          <p>Applied NLP implementations—from classic sentiment modeling to modern Transformer-based pipelines. Focused on end-to-end training, evaluation, and reproducibility.</p>
+
+        <div class="cat-articles">
+          <div class="article-item">
+            <a href="https://github.com/WoodyChang21/Movie-Review-Sentiment-NLP" class="article-link" target="_blank" rel="noopener">
+              <div style="flex: 1;">
+                <div class="article-title">Movie Review Sentiment (LSTM vs BERT)</div>
+                <div class="article-meta">NLP • IMDb • Text Preprocessing • LSTM • BERT Fine-tuning • Evaluation</div>
+                <div class="article-desc">
+                  Benchmarks a sequence model (LSTM) against a Transformer approach (BERT) on movie review sentiment classification, highlighting trade-offs in representation power, training cost, and accuracy.
+                </div>
+              </div>
+              <div class="article-actions">
+                <span class="article-github">View GitHub</span>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
 
-      <div class="cat-articles">
-        <div class="article-item">
-          <a href="https://github.com/WoodyChang21/Movie-Review-Sentiment-NLP" class="article-link" target="_blank" rel="noopener">
-            <div style="flex: 1;">
-              <div class="article-title">Movie Review Sentiment (LSTM vs BERT)</div>
-              <div class="article-meta">NLP • IMDb • Text Preprocessing • LSTM • BERT Fine-tuning • Evaluation</div>
-              <div class="article-desc">
-                Benchmarks a sequence model (LSTM) against a Transformer approach (BERT) on movie review sentiment classification, highlighting trade-offs in representation power, training cost, and accuracy.
+      <!-- Vision / CNN Projects -->
+      <div class="category-row">
+        <div class="cat-info">
+          <div>
+            <div class="section-label">Projects</div>
+            <h3 class="cat-title">Computer Vision</h3>
+          </div>
+          <div class="cat-desc">
+            <p>Computer vision projects spanning generative modeling, recognition, and self-supervised representation learning—built as complete ML workflows.</p>
+          </div>
+        </div>
+
+        <div class="cat-articles">
+          <div class="article-item">
+            <a href="https://github.com/WoodyChang21/Conditional-GAN-Colorization" class="article-link" target="_blank" rel="noopener">
+              <div style="flex: 1;">
+                <div class="article-title">Conditional GAN Colorization</div>
+                <div class="article-meta">CNN • cGAN • Image-to-Image • Adversarial Training • Perceptual Quality</div>
+                <div class="article-desc">
+                  Image colorization with conditional GANs—explores adversarial objectives for sharper, more realistic outputs and compares qualitative results across samples.
+                </div>
               </div>
-            </div>
-            <div class="article-actions">
-              <span class="article-github">View GitHub</span>
-            </div>
-          </a>
+              <div class="article-actions">
+                <span class="article-github">View GitHub</span>
+              </div>
+            </a>
+          </div>
+
+          <div class="article-item">
+            <a href="https://github.com/WoodyChang21/Sign-Language-Recognition" class="article-link" target="_blank" rel="noopener">
+              <div style="flex: 1;">
+                <div class="article-title">Sign Language Recognition</div>
+                <div class="article-meta">CNN • Classification • Video/Frames • Data Pipeline • Metrics</div>
+                <div class="article-desc">
+                  End-to-end sign language recognition pipeline with model training and evaluation—emphasizes dataset handling, augmentation, and robust validation.
+                </div>
+              </div>
+              <div class="article-actions">
+                <span class="article-github">View GitHub</span>
+              </div>
+            </a>
+          </div>
+
+          <div class="article-item">
+            <a href="https://github.com/WoodyChang21/Self-Supervised-Object-Detection-and-Classification" class="article-link" target="_blank" rel="noopener">
+              <div style="flex: 1;">
+                <div class="article-title">Self-Supervised Detection & Classification</div>
+                <div class="article-meta">Self-Supervised Learning • Representation Learning • Object Detection • Transfer</div>
+                <div class="article-desc">
+                  Studies self-supervised representations and how they transfer to downstream detection/classification tasks—focused on learning strong features with minimal labels.
+                </div>
+              </div>
+              <div class="article-actions">
+                <span class="article-github">View GitHub</span>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- Vision / CNN Projects -->
-    <div class="category-row">
-      <div class="cat-info">
-        <div>
-          <div class="section-label">Projects</div>
-          <h3 class="cat-title">Computer Vision</h3>
-        </div>
-        <div class="cat-desc">
-          <p>Computer vision projects spanning generative modeling, recognition, and self-supervised representation learning—built as complete ML workflows.</p>
-        </div>
-      </div>
-
-      <div class="cat-articles">
-        <div class="article-item">
-          <a href="https://github.com/WoodyChang21/Conditional-GAN-Colorization" class="article-link" target="_blank" rel="noopener">
-            <div style="flex: 1;">
-              <div class="article-title">Conditional GAN Colorization</div>
-              <div class="article-meta">CNN • cGAN • Image-to-Image • Adversarial Training • Perceptual Quality</div>
-              <div class="article-desc">
-                Image colorization with conditional GANs—explores adversarial objectives for sharper, more realistic outputs and compares qualitative results across samples.
-              </div>
-            </div>
-            <div class="article-actions">
-              <span class="article-github">View GitHub</span>
-            </div>
-          </a>
-        </div>
-
-        <div class="article-item">
-          <a href="https://github.com/WoodyChang21/Sign-Language-Recognition" class="article-link" target="_blank" rel="noopener">
-            <div style="flex: 1;">
-              <div class="article-title">Sign Language Recognition</div>
-              <div class="article-meta">CNN • Classification • Video/Frames • Data Pipeline • Metrics</div>
-              <div class="article-desc">
-                End-to-end sign language recognition pipeline with model training and evaluation—emphasizes dataset handling, augmentation, and robust validation.
-              </div>
-            </div>
-            <div class="article-actions">
-              <span class="article-github">View GitHub</span>
-            </div>
-          </a>
-        </div>
-
-        <div class="article-item">
-          <a href="https://github.com/WoodyChang21/Self-Supervised-Object-Detection-and-Classification" class="article-link" target="_blank" rel="noopener">
-            <div style="flex: 1;">
-              <div class="article-title">Self-Supervised Detection & Classification</div>
-              <div class="article-meta">Self-Supervised Learning • Representation Learning • Object Detection • Transfer</div>
-              <div class="article-desc">
-                Studies self-supervised representations and how they transfer to downstream detection/classification tasks—focused on learning strong features with minimal labels.
-              </div>
-            </div>
-            <div class="article-actions">
-              <span class="article-github">View GitHub</span>
-            </div>
-          </a>
-        </div>
-
-      </div>
-    </div>
-
   </section>
 
+  <!-- HARD VISUAL BREAK -->
+  <div class="hard-divider"></div>
+
   <!-- ===================== -->
-  <!-- ARTICLES (EXISTING) -->
+  <!-- AI AGENTS CHAPTER -->
   <!-- ===================== -->
-  <section id="articles" class="category-section">
+  <section id="agents" class="section-wrap section-wrap--agents">
+    <div class="section-hero section-hero--dark">
+      <span class="section-kicker">Chapter 02</span>
+      <h2>AI Agent Systems</h2>
+      <p>
+        This is “system-building”: orchestration, tool use, memory, retrieval, evaluation, and production patterns.
+        Articles + implementations across MCP, LangGraph, Semantic Kernel, and Prompt Engineering.
+      </p>
+    </div>
 
-    <div class="category-row">
-      <div class="cat-info">
-        <div>
-          <div class="section-label">Articles</div>
-          <h3 class="cat-title">MCP<br />Protocols</h3>
+    <div class="category-section">
+      <div class="category-row">
+        <div class="cat-info">
+          <div>
+            <div class="section-label">Articles</div>
+            <h3 class="cat-title">MCP<br />Protocols</h3>
+          </div>
+          <div class="cat-desc">
+            <p>Researching the Model Context Protocol to standardize how agents connect with external tools and data.</p>
+          </div>
         </div>
-        <div class="cat-desc">
-          <p>Researching the Model Context Protocol to standardize how agents connect with external tools and data.</p>
+        <div class="cat-articles">
+          <div class="article-item">
+            <a href="https://hackmd.io/@WoodyChang1121/BkZqYuG9lx" class="article-link">
+              <div style="flex: 1;">
+                <div class="article-title">MCP Fundamentals: Building Your First Server</div>
+                <div class="article-meta">LangChain • Python • Model Context Protocol • Streamlit • Server-Sent Events</div>
+                <div class="article-desc">
+                  A comprehensive introduction to the Model Context Protocol (MCP) - the standardized way to connect AI agents with external tools and data sources. Learn to build your first MCP server from scratch, understand the protocol architecture, and explore hands-on examples.
+                </div>
+              </div>
+              <div class="article-actions">
+                <a href="https://github.com/WoodyChang21/MCP" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
+              </div>
+            </a>
+          </div>
+
+          <div class="article-item">
+            <a href="https://hackmd.io/@WoodyChang1121/S11Tazrcge" class="article-link">
+              <div style="flex: 1;">
+                <div class="article-title">MCP + LangChain: From NPX to Production</div>
+                <div class="article-meta">LangChain • Python • Model Context Protocol • Streamlit • Server-Sent Events</div>
+                <div class="article-desc">
+                  Discover how to connect LangChain agents to pre-built MCP servers and build production-ready AI applications. This guide covers everything from NPX server integration to creating interactive Streamlit applications with real-time data visualization.
+                </div>
+              </div>
+              <div class="article-actions">
+                <a href="https://github.com/WoodyChang21/MCP" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
-      <div class="cat-articles">
-        <div class="article-item">
-          <a href="https://hackmd.io/@WoodyChang1121/BkZqYuG9lx" class="article-link">
-            <div style="flex: 1;">
-              <div class="article-title">MCP Fundamentals: Building Your First Server</div>
-              <div class="article-meta">LangChain • Python • Model Context Protocol • Streamlit • Server-Sent Events</div>
-              <div class="article-desc">A comprehensive introduction to the Model Context Protocol (MCP) - the standardized way to connect AI agents with external tools and data sources. Learn to build your first MCP server from scratch, understand the protocol architecture, and explore hands-on examples.</div>
-            </div>
-            <div class="article-actions">
-              <a href="https://github.com/WoodyChang21/MCP" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
-            </div>
-          </a>
+
+      <div class="category-row">
+        <div class="cat-info">
+          <div>
+            <div class="section-label">Articles</div>
+            <h3 class="cat-title">LangGraph<br />Systems</h3>
+          </div>
+          <div class="cat-desc">
+            <p>Moving from chains to cyclic graphs. Building orchestration layers for complex, multi-step reasoning tasks.</p>
+          </div>
         </div>
-        <div class="article-item">
-          <a href="https://hackmd.io/@WoodyChang1121/S11Tazrcge" class="article-link">
-            <div style="flex: 1;">
-              <div class="article-title">MCP + LangChain: From NPX to Production</div>
-              <div class="article-meta">LangChain • Python • Model Context Protocol • Streamlit • Server-Sent Events</div>
-              <div class="article-desc">Discover how to connect LangChain agents to pre-built MCP servers and build production-ready AI applications. This guide covers everything from NPX server integration to creating interactive Streamlit applications with real-time data visualization.</div>
-            </div>
-            <div class="article-actions">
-              <a href="https://github.com/WoodyChang21/MCP" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
-            </div>
-          </a>
+        <div class="cat-articles">
+          <div class="article-item">
+            <a href="https://hackmd.io/@WoodyChang1121/SkJ0nysk-l" class="article-link">
+              <div style="flex: 1;">
+                <div class="article-title">AI-Powered SQL & Visualization Swarm</div>
+                <div class="article-meta">LangGraph • Docker • Redis • AWS S3 • PostgreSQL • Open WebUI</div>
+                <div class="article-desc">
+                  Build a production-ready multi-agent system with LangGraph where specialized agents handle SQL queries and data visualization through intelligent coordination—then deploy it two ways: LangGraph CLI with Agent Chat UI for rapid prototyping, or Docker Compose with Open WebUI for production.
+                </div>
+              </div>
+              <div class="article-actions">
+                <a href="https://github.com/WoodyChang21/langgraph_data_swarm" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
+              </div>
+            </a>
+          </div>
+
+          <div class="article-item">
+            <a href="https://hackmd.io/@WoodyChang1121/SkFd4yJulg" class="article-link">
+              <div style="flex: 1;">
+                <div class="article-title">Advanced RAG with Self Evaluation</div>
+                <div class="article-meta">LangGraph • Python • LangSmith • Pydantic • API Integration</div>
+                <div class="article-desc">
+                  Exploring advanced Retrieval-Augmented Generation techniques using LangChain's LangGraph framework. This article delves into sophisticated information retrieval patterns and graph-based reasoning for enhanced AI responses, demonstrating complex workflow orchestration and multi-step reasoning processes.
+                </div>
+              </div>
+              <div class="article-actions"></div>
+            </a>
+          </div>
+
+          <div class="article-item">
+            <a href="https://hackmd.io/@WoodyChang1121/BybWgQ3Ygx" class="article-link">
+              <div style="flex: 1;">
+                <div class="article-title">MongoDB Query & Visualization with NL</div>
+                <div class="article-meta">LangGraph • MongoDB • Python • Data Visualization • Matplotlib</div>
+                <div class="article-desc">
+                  Learn how to build an end-to-end pipeline with LangGraph that converts plain English questions into MongoDB queries and automatically generates Python code to produce visual charts. A hands-on guide to combining data retrieval, code generation, and safe execution.
+                </div>
+              </div>
+              <div class="article-actions"></div>
+            </a>
+          </div>
+
+          <div class="article-item">
+            <a href="https://hackmd.io/zpwWNdhHTz-Aj9JEHjpqkA" class="article-link">
+              <div style="flex: 1;">
+                <div class="article-title">Document Web Crawling + RAG Chatbot</div>
+                <div class="article-meta">LangChain • Pinecone • MongoDB Atlas • Web Scraping • OpenAI API</div>
+                <div class="article-desc">
+                  Comprehensive implementation of a document-aware chatbot using LangChain for web crawling, document processing, and Retrieval-Augmented Generation. Features intelligent document ingestion, semantic search capabilities, and context-aware responses for enhanced user interactions.
+                </div>
+              </div>
+              <div class="article-actions">
+                <a href="https://github.com/WoodyChang21/LangGraph_RAG_Chatbot" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-row">
+        <div class="cat-info">
+          <div>
+            <div class="section-label">Articles</div>
+            <h3 class="cat-title">Semantic<br />Kernel</h3>
+          </div>
+          <div class="cat-desc">
+            <p>Deep dive into Microsoft's SDK. Focusing on memory management, security (RBAC), and plugin architecture.</p>
+          </div>
+        </div>
+        <div class="cat-articles">
+          <div class="article-item">
+            <a href="https://hackmd.io/@WoodyChang1121/BkEXT_zHxl" class="article-link">
+              <div style="flex: 1;">
+                <div class="article-title">Creating AI Agents with Semantic Kernel</div>
+                <div class="article-meta">Semantic Kernel • Python • Azure OpenAI • REST API</div>
+                <div class="article-desc">
+                  A comprehensive guide to building highly scalable and flexible AI Agent systems using Microsoft Semantic Kernel. This article explores the evolution from multi-agent architectures to a single agent with multiple plugin tools approach, demonstrating superior handling of multi-intent queries and enhanced system flexibility.
+                </div>
+              </div>
+              <div class="article-actions"></div>
+            </a>
+          </div>
+
+          <div class="article-item">
+            <a href="https://hackmd.io/@WoodyChang1121/BJoXWPmHgl" class="article-link">
+              <div style="flex: 1;">
+                <div class="article-title">Memory Management Evolution</div>
+                <div class="article-meta">Python • Redis • NoSQL • Data Serialization</div>
+                <div class="article-desc">
+                  Deep dive into the evolution of conversation memory management systems. This technical report covers the structural limitations of Redis-based storage and introduces the revolutionary ChatHistoryAgentThread architecture for superior context preservation, tool call tracking, and personalized user experiences.
+                </div>
+              </div>
+              <div class="article-actions"></div>
+            </a>
+          </div>
+
+          <div class="article-item">
+            <a href="https://hackmd.io/@WoodyChang1121/ryfZCX5Heg" class="article-link">
+              <div style="flex: 1;">
+                <div class="article-title">User Permission System (RBAC) Implementation</div>
+                <div class="article-meta">Semantic Kernel • Python • Authentication • REST API • RBAC</div>
+                <div class="article-desc">
+                  Complete implementation of Role-Based Access Control (RBAC) system for LINE chatbot applications using Semantic Kernel agents. Features dual authentication through email verification, function-level access control based on user roles, and comprehensive security considerations for enterprise deployment.
+                </div>
+              </div>
+              <div class="article-actions"></div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-row">
+        <div class="cat-info">
+          <div>
+            <div class="section-label">Articles</div>
+            <h3 class="cat-title">Prompt<br />Engineering</h3>
+          </div>
+          <div class="cat-desc">
+            <p>The science of communication with LLMs. Techniques for consistency and reliability.</p>
+          </div>
+        </div>
+        <div class="cat-articles">
+          <div class="article-item">
+            <a href="https://hackmd.io/@WoodyChang1121/ByiuVVgcel" class="article-link">
+              <div style="flex: 1;">
+                <div class="article-title">A Practical Guide to Effective LLM Prompts</div>
+                <div class="article-meta">Best Practices // Methodology</div>
+                <div class="article-desc">
+                  Prompt engineering is the art and science of designing inputs that steer large language models (LLMs) toward reliable, accurate, and useful outputs. This guide introduces the anatomy of a prompt, explains common prompting paradigms (Zero-Shot, Few-Shot, Chain-of-Thought, ReAct), and shares practical techniques and templates you can use immediately.
+                </div>
+              </div>
+              <div class="article-actions"></div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="category-row">
-      <div class="cat-info">
-        <div>
-          <div class="section-label">Articles</div>
-          <h3 class="cat-title">LangGraph<br />Systems</h3>
-        </div>
-        <div class="cat-desc">
-          <p>Moving from chains to cyclic graphs. Building orchestration layers for complex, multi-step reasoning tasks.</p>
-        </div>
-      </div>
-      <div class="cat-articles">
-        <div class="article-item">
-          <a href="https://hackmd.io/@WoodyChang1121/SkJ0nysk-l" class="article-link">
-            <div style="flex: 1;">
-              <div class="article-title">AI-Powered SQL & Visualization Swarm</div>
-              <div class="article-meta">LangGraph • Docker • Redis • AWS S3 • PostgreSQL • Open WebUI</div>
-              <div class="article-desc">Build a production-ready multi-agent system with LangGraph where specialized agents handle SQL queries and data visualization through intelligent coordination—then deploy it two ways: LangGraph CLI with Agent Chat UI for rapid prototyping, or Docker Compose with Open WebUI for production.</div>
-            </div>
-            <div class="article-actions">
-              <a href="https://github.com/WoodyChang21/langgraph_data_swarm" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
-            </div>
-          </a>
-        </div>
-        <div class="article-item">
-          <a href="https://hackmd.io/@WoodyChang1121/SkFd4yJulg" class="article-link">
-            <div style="flex: 1;">
-              <div class="article-title">Advanced RAG with Self Evaluation</div>
-              <div class="article-meta">LangGraph • Python • LangSmith • Pydantic • API Integration</div>
-              <div class="article-desc">Exploring advanced Retrieval-Augmented Generation techniques using LangChain's LangGraph framework. This article delves into sophisticated information retrieval patterns and graph-based reasoning for enhanced AI responses, demonstrating complex workflow orchestration and multi-step reasoning processes.</div>
-            </div>
-            <div class="article-actions"></div>
-          </a>
-        </div>
-        <div class="article-item">
-          <a href="https://hackmd.io/@WoodyChang1121/BybWgQ3Ygx" class="article-link">
-            <div style="flex: 1;">
-              <div class="article-title">MongoDB Query & Visualization with NL</div>
-              <div class="article-meta">LangGraph • MongoDB • Python • Data Visualization • Matplotlib</div>
-              <div class="article-desc">Learn how to build an end-to-end pipeline with LangGraph that converts plain English questions into MongoDB queries and automatically generates Python code to produce visual charts. A hands-on guide to combining data retrieval, code generation, and safe execution.</div>
-            </div>
-            <div class="article-actions"></div>
-          </a>
-        </div>
-        <div class="article-item">
-          <a href="https://hackmd.io/zpwWNdhHTz-Aj9JEHjpqkA" class="article-link">
-            <div style="flex: 1;">
-              <div class="article-title">Document Web Crawling + RAG Chatbot</div>
-              <div class="article-meta">LangChain • Pinecone • MongoDB Atlas • Web Scraping • OpenAI API</div>
-              <div class="article-desc">Comprehensive implementation of a document-aware chatbot using LangChain for web crawling, document processing, and Retrieval-Augmented Generation. Features intelligent document ingestion, semantic search capabilities, and context-aware responses for enhanced user interactions.</div>
-            </div>
-            <div class="article-actions">
-              <a href="https://github.com/WoodyChang21/LangGraph_RAG_Chatbot" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="category-row">
-      <div class="cat-info">
-        <div>
-          <div class="section-label">Articles</div>
-          <h3 class="cat-title">Semantic<br />Kernel</h3>
-        </div>
-        <div class="cat-desc">
-          <p>Deep dive into Microsoft's SDK. Focusing on memory management, security (RBAC), and plugin architecture.</p>
-        </div>
-      </div>
-      <div class="cat-articles">
-        <div class="article-item">
-          <a href="https://hackmd.io/@WoodyChang1121/BkEXT_zHxl" class="article-link">
-            <div style="flex: 1;">
-              <div class="article-title">Creating AI Agents with Semantic Kernel</div>
-              <div class="article-meta">Semantic Kernel • Python • Azure OpenAI • REST API</div>
-              <div class="article-desc">A comprehensive guide to building highly scalable and flexible AI Agent systems using Microsoft Semantic Kernel. This article explores the evolution from multi-agent architectures to a single agent with multiple plugin tools approach, demonstrating superior handling of multi-intent queries and enhanced system flexibility.</div>
-            </div>
-            <div class="article-actions"></div>
-          </a>
-        </div>
-        <div class="article-item">
-          <a href="https://hackmd.io/@WoodyChang1121/BJoXWPmHgl" class="article-link">
-            <div style="flex: 1;">
-              <div class="article-title">Memory Management Evolution</div>
-              <div class="article-meta">Python • Redis • NoSQL • Data Serialization</div>
-              <div class="article-desc">Deep dive into the evolution of conversation memory management systems. This technical report covers the structural limitations of Redis-based storage and introduces the revolutionary ChatHistoryAgentThread architecture for superior context preservation, tool call tracking, and personalized user experiences.</div>
-            </div>
-            <div class="article-actions"></div>
-          </a>
-        </div>
-        <div class="article-item">
-          <a href="https://hackmd.io/@WoodyChang1121/ryfZCX5Heg" class="article-link">
-            <div style="flex: 1;">
-              <div class="article-title">User Permission System (RBAC) Implementation</div>
-              <div class="article-meta">Semantic Kernel • Python • Authentication • REST API • RBAC</div>
-              <div class="article-desc">Complete implementation of Role-Based Access Control (RBAC) system for LINE chatbot applications using Semantic Kernel agents. Features dual authentication through email verification, function-level access control based on user roles, and comprehensive security considerations for enterprise deployment.</div>
-            </div>
-            <div class="article-actions"></div>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="category-row">
-      <div class="cat-info">
-        <div>
-          <div class="section-label">Articles</div>
-          <h3 class="cat-title">Prompt<br />Engineering</h3>
-        </div>
-        <div class="cat-desc">
-          <p>The science of communication with LLMs. Techniques for consistency and reliability.</p>
-        </div>
-      </div>
-      <div class="cat-articles">
-        <div class="article-item">
-          <a href="https://hackmd.io/@WoodyChang1121/ByiuVVgcel" class="article-link">
-            <div style="flex: 1;">
-              <div class="article-title">A Practical Guide to Effective LLM Prompts</div>
-              <div class="article-meta">Best Practices // Methodology</div>
-              <div class="article-desc">Prompt engineering is the art and science of designing inputs that steer large language models (LLMs) toward reliable, accurate, and useful outputs. This guide introduces the anatomy of a prompt, explains common prompting paradigms (Zero-Shot, Few-Shot, Chain-of-Thought, ReAct), and shares practical techniques and templates you can use immediately.</div>
-            </div>
-            <div class="article-actions"></div>
-          </a>
-        </div>
-      </div>
-    </div>
-
   </section>
 
   <footer id="contact">
