@@ -1,656 +1,782 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Woody Chang | AI Agent Journey</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:opsz,wght@9..40,400;500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Woody Chang | AI Journey</title>
 
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #000000;
-            --accent-gray: #f4f4f4;
-            --border-color: #000000;
-            --font-head: 'Archivo Black', sans-serif;
-            --font-body: 'DM Sans', sans-serif;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:opsz,wght@9..40,400;500;700&display=swap" rel="stylesheet" />
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --accent-gray: #f4f4f4;
+      --border-color: #000000;
+      --font-head: 'Archivo Black', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: var(--font-body);
-            line-height: 1.4;
-            overflow-x: hidden;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-body);
+      line-height: 1.4;
+      overflow-x: hidden;
+    }
 
-        /* --- UTILITY CLASSES --- */
-        .container {
-            max-width: 100%;
-            padding: 0 4%;
-        }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-        .border-bottom {
-            border-bottom: 2px solid var(--border-color);
-        }
+    /* --- UTILITY CLASSES --- */
+    .container {
+      max-width: 100%;
+      padding: 0 4%;
+    }
 
-        .btn {
-            display: inline-block;
-            background: #000;
-            color: #fff;
-            padding: 12px 24px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            border: 2px solid #000;
-        }
+    .border-bottom {
+      border-bottom: 2px solid var(--border-color);
+    }
 
-        .btn:hover {
-            background: #fff;
-            color: #000;
-        }
+    .btn {
+      display: inline-block;
+      background: #000;
+      color: #fff;
+      padding: 12px 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      border: 2px solid #000;
+    }
 
-        .btn-outline {
-            background: transparent;
-            color: #000;
-        }
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
 
-        .btn-outline:hover {
-            background: #000;
-            color: #fff;
-        }
+    .btn-outline {
+      background: transparent;
+      color: #000;
+    }
 
-        /* --- NAVIGATION --- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 4%;
-            border-bottom: 2px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            background: #fff;
-            z-index: 1000;
-        }
+    .btn-outline:hover {
+      background: #000;
+      color: #fff;
+    }
 
-        .logo {
-            font-family: var(--font-head);
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
+    /* --- NAVIGATION --- */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4%;
+      border-bottom: 2px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 1000;
+    }
 
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
+    .logo {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
 
-        .nav-menu a:hover {
-            text-decoration: underline;
-        }
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            padding: 8rem 4%;
-            border-bottom: 2px solid var(--border-color);
-        }
+    .nav-menu a:hover {
+      text-decoration: underline;
+    }
 
-        .hero-label {
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            display: block;
-        }
+    /* --- HERO SECTION --- */
+    .hero {
+      padding: 8rem 4%;
+      border-bottom: 2px solid var(--border-color);
+    }
 
-        h1 {
-            font-family: var(--font-head);
-            font-size: clamp(3rem, 8vw, 7rem);
-            line-height: 0.9;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-        }
+    .hero-label {
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: block;
+    }
 
-        .hero-desc {
-            font-size: 1.25rem;
-            max-width: 700px;
-            margin-bottom: 3rem;
-            font-weight: 500;
-        }
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(3rem, 8vw, 7rem);
+      line-height: 0.9;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
 
-        /* --- MARQUEE --- */
-        .marquee {
-            background: #000;
-            color: #fff;
-            padding: 1rem 0;
-            overflow: hidden;
-            white-space: nowrap;
-            font-family: var(--font-head);
-            text-transform: uppercase;
-            font-size: 1.2rem;
-        }
+    .hero-desc {
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin-bottom: 3rem;
+      font-weight: 500;
+    }
 
-        .marquee-content {
-            display: inline-block;
-            animation: scroll 20s linear infinite;
-        }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
 
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+    /* --- MARQUEE --- */
+    .marquee {
+      background: #000;
+      color: #fff;
+      padding: 1rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+      font-family: var(--font-head);
+      text-transform: uppercase;
+      font-size: 1.2rem;
+    }
 
-        /* --- ABOUT / INTRO --- */
-        .intro-section {
-            padding: 6rem 4%;
-            background: var(--accent-gray);
-            border-bottom: 2px solid var(--border-color);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
+    .marquee-content {
+      display: inline-block;
+      animation: scroll 20s linear infinite;
+    }
 
-        .intro-text h2 {
-            font-family: var(--font-head);
-            font-size: 3rem;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            line-height: 1;
-        }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
 
-        .intro-text p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
+    /* --- ABOUT / INTRO --- */
+    .intro-section {
+      padding: 6rem 4%;
+      background: var(--accent-gray);
+      border-bottom: 2px solid var(--border-color);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
 
-        /* --- BLOG CATEGORY LAYOUT (Based on Nat Boos "Solutions") --- */
-        .category-section {
-            display: grid;
-            grid-template-columns: 1fr;
-        }
+    .intro-text h2 {
+      font-family: var(--font-head);
+      font-size: 3rem;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      line-height: 1;
+    }
 
-        .category-row {
-            display: grid;
-            grid-template-columns: 0.8fr 1.2fr;
-            border-bottom: 2px solid var(--border-color);
-            min-height: 500px; /* Keep sections substantial */
-        }
+    .intro-text p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
 
-        /* Left Side: Category Title & Desc */
-        .cat-info {
-            background: #fff;
-            padding: 4rem;
-            border-right: 2px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    /* --- CATEGORY LAYOUT --- */
+    .category-section {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
 
-        .cat-title {
-            font-family: var(--font-head);
-            font-size: 3rem;
-            line-height: 1;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
+    .category-row {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      border-bottom: 2px solid var(--border-color);
+      min-height: 500px;
+    }
 
-        .cat-desc {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #444;
-        }
+    /* Left Side: Category Title & Desc */
+    .cat-info {
+      background: #fff;
+      padding: 4rem;
+      border-right: 2px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-        /* Right Side: Article List */
-        .cat-articles {
-            padding: 4rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+    .cat-title {
+      font-family: var(--font-head);
+      font-size: 3rem;
+      line-height: 1;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
 
-        .article-item {
-            padding: 1.5rem 0;
-            border-bottom: 1px solid #ccc;
-            transition: all 0.2s;
-        }
+    .cat-desc {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #444;
+    }
 
-        .article-item:first-child {
-            border-top: 1px solid #ccc;
-        }
+    /* Right Side: List */
+    .cat-articles {
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-        .article-item:hover {
-            padding-left: 1rem;
-            background: #f9f9f9;
-            border-color: #000;
-        }
+    .article-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid #ccc;
+      transition: all 0.2s;
+    }
 
-        .article-link {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 100%;
-            gap: 2rem;
-        }
+    .article-item:first-child {
+      border-top: 1px solid #ccc;
+    }
 
-        .article-title {
-            font-weight: 700;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-        }
+    .article-item:hover {
+      padding-left: 1rem;
+      background: #f9f9f9;
+      border-color: #000;
+    }
 
-        .article-meta {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 0.3rem;
-        }
+    .article-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      gap: 2rem;
+    }
 
-        .article-desc {
-            font-size: 0.95rem;
-            color: #444;
-            margin-top: 0.5rem;
-            line-height: 1.5;
-            font-weight: 400;
-        }
+    .article-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+    }
 
-        .article-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
+    .article-meta {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 0.3rem;
+    }
 
-        .article-github {
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #666;
-            border-bottom: 1px solid transparent;
-            transition: all 0.2s;
-        }
+    .article-desc {
+      font-size: 0.95rem;
+      color: #444;
+      margin-top: 0.5rem;
+      line-height: 1.5;
+      font-weight: 400;
+    }
 
-        .article-github:hover {
-            color: #000;
-            border-bottom-color: #000;
-        }
+    .article-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-shrink: 0;
+    }
 
-        /* --- FOOTER --- */
-        footer {
-            padding: 4rem 4%;
-            background: #000;
-            color: #fff;
-            text-align: center;
-        }
+    .article-github {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #666;
+      border-bottom: 1px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
+    .article-github:hover {
+      color: #000;
+      border-bottom-color: #000;
+    }
 
-        .social-links a {
-            font-family: var(--font-head);
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            border-bottom: 2px solid transparent;
-        }
+    /* Small label to distinguish Projects vs Articles while reusing layout */
+    .section-label {
+      font-family: var(--font-head);
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.8rem;
+      opacity: 0.85;
+    }
 
-        .social-links a:hover {
-            border-bottom: 2px solid #fff;
-        }
+    /* --- FOOTER --- */
+    footer {
+      padding: 4rem 4%;
+      background: #000;
+      color: #fff;
+      text-align: center;
+    }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .category-row {
-                grid-template-columns: 1fr;
-            }
-            .cat-info {
-                border-right: none;
-                border-bottom: 2px solid var(--border-color);
-                padding: 3rem 4%;
-            }
-            .cat-articles {
-                padding: 2rem 4%;
-            }
-            .intro-section {
-                grid-template-columns: 1fr;
-            }
-            h1 {
-                font-size: 3.5rem;
-            }
-            .nav-menu {
-                display: none;
-            }
-        }
-    </style>
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      border-bottom: 2px solid transparent;
+    }
+
+    .social-links a:hover {
+      border-bottom: 2px solid #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .category-row {
+        grid-template-columns: 1fr;
+      }
+      .cat-info {
+        border-right: none;
+        border-bottom: 2px solid var(--border-color);
+        padding: 3rem 4%;
+      }
+      .cat-articles {
+        padding: 2rem 4%;
+      }
+      .intro-section {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        font-size: 3.5rem;
+      }
+      .nav-menu {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <nav>
+    <div class="logo">Woody Chang</div>
+    <div class="nav-menu">
+      <a href="#about">About</a>
+      <a href="#projects">Deep Learning</a>
+      <a href="#articles">Agents</a>
+      <a href="#contact">Contact Me</a>
+      <a href="resume.pdf" target="_blank">Resume</a>
+    </div>
+    <a href="https://github.com/WoodyChang21" class="btn">GitHub Profile</a>
+  </nav>
 
-    <nav>
-        <div class="logo">Woody Chang</div>
-        <div class="nav-menu">
-            <a href="#about">About</a>
-            <a href="#articles">Articles</a>
-            <a href="#contact">Contact Me</a>
-            <a href="resume.pdf" target="_blank">Resume</a>
+  <header class="hero">
+    <span class="hero-label">Building systems that learn and systems that act</span>
+  
+    <h1>AI Journey</h1>
+  
+    <p class="hero-desc">
+        A living log of my engineering work from deep learning projects in language and vision to building LLM agents step by step.
+        <br><br>
+        Minimal write-ups. Reproducible code. Practical lessons.
+    </p>
+  
+    <div class="hero-cta">
+      <a href="#projects" class="btn">DL Projects</a>
+      <a href="#articles" class="btn btn-outline">Agent Articles</a>
+    </div>
+  </header>
+
+  <div class="marquee">
+    <div class="marquee-content">
+      // DOCUMENTING THE PROCESS // BUILDING AGENTS // OPEN SOURCE // LEARNING BY DOING // DOCUMENTING THE PROCESS // BUILDING AGENTS // OPEN SOURCE // LEARNING BY DOING
+    </div>
+  </div>
+
+  <section id="about" class="intro-section">
+    <div class="intro-text">
+      <h2>Who am I?</h2>
+      <p>
+        <strong>I am an AI engineer obsessed with the "how".</strong><br />
+        How do we move beyond chat interfaces? How do we build agents that can reliably use tools? How do deep learning models learn meaningful representations?
+      </p>
+      <p>
+        This website is not a portfolio for clients—it is a living document of my technical growth. I share insights into advanced agent architecture, deep learning projects (NLP, computer vision, generative models), emerging technologies, and enterprise-level implementations.
+      </p>
+    </div>
+    <div class="intro-stats">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+          <span style="font-family: var(--font-head); font-size: 3rem;">10+</span>
+          <p style="font-weight: 700; text-transform: uppercase;">Technical Articles</p>
         </div>
-        <a href="https://github.com/WoodyChang21" class="btn">GitHub Profile</a>
-    </nav>
-
-    <header class="hero">
-        <span class="hero-label">Personal Documentation & Research</span>
-        <h1>AI Agent<br>Journey.</h1>
-        <p class="hero-desc">
-            Where curiosity meets code. Documenting the journey of building AI agents that think, reason, and act—transforming ideas into intelligent systems that solve real problems.
-        </p>
-        <a href="#articles" class="btn">Explore Articles</a>
-    </header>
-
-    <div class="marquee">
-        <div class="marquee-content">
-            // DOCUMENTING THE PROCESS // BUILDING AGENTS // OPEN SOURCE // LEARNING BY DOING // DOCUMENTING THE PROCESS // BUILDING AGENTS // OPEN SOURCE // LEARNING BY DOING
+        <div>
+          <span style="font-family: var(--font-head); font-size: 3rem;">03</span>
+          <p style="font-weight: 700; text-transform: uppercase;">Core Frameworks</p>
         </div>
+        <div>
+          <span style="font-family: var(--font-head); font-size: 3rem;">100%</span>
+          <p style="font-weight: 700; text-transform: uppercase;">Open Source</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== -->
+  <!-- PROJECTS (NEW SECTION) -->
+  <!-- ===================== -->
+  <section id="projects" class="category-section">
+
+    <!-- NLP Projects -->
+    <div class="category-row">
+      <div class="cat-info">
+        <div>
+          <div class="section-label">Projects</div>
+          <h3 class="cat-title">Natural Language Processing</h3>
+        </div>
+        <div class="cat-desc">
+          <p>Applied NLP implementations—from classic sentiment modeling to modern Transformer-based pipelines. Focused on end-to-end training, evaluation, and reproducibility.</p>
+        </div>
+      </div>
+
+      <div class="cat-articles">
+        <div class="article-item">
+          <a href="https://github.com/WoodyChang21/Movie-Review-Sentiment-NLP" class="article-link" target="_blank" rel="noopener">
+            <div style="flex: 1;">
+              <div class="article-title">Movie Review Sentiment (LSTM vs BERT)</div>
+              <div class="article-meta">NLP • IMDb • Text Preprocessing • LSTM • BERT Fine-tuning • Evaluation</div>
+              <div class="article-desc">
+                Benchmarks a sequence model (LSTM) against a Transformer approach (BERT) on movie review sentiment classification, highlighting trade-offs in representation power, training cost, and accuracy.
+              </div>
+            </div>
+            <div class="article-actions">
+              <span class="article-github">View GitHub</span>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
 
-    <section id="about" class="intro-section">
-        <div class="intro-text">
-            <h2>Who am I?</h2>
-            <p>
-                <strong>I am an AI engineer obsessed with the "how".</strong><br> 
-                How do we move beyond chat interfaces? How do we build agents that can reliably use tools?
-            </p>
-            <p>
-                This website is not a portfolio for clients—it is a living document of my technical growth. I share insights into advanced agent architecture, emerging technologies, and enterprise-level implementations.
-            </p>
+    <!-- Vision / CNN Projects -->
+    <div class="category-row">
+      <div class="cat-info">
+        <div>
+          <div class="section-label">Projects</div>
+          <h3 class="cat-title">Computer Vision</h3>
         </div>
-        <div class="intro-stats">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                <div>
-                    <span style="font-family: var(--font-head); font-size: 3rem;">10+</span>
-                    <p style="font-weight: 700; text-transform: uppercase;">Technical Articles</p>
-                </div>
-                <div>
-                    <span style="font-family: var(--font-head); font-size: 3rem;">03</span>
-                    <p style="font-weight: 700; text-transform: uppercase;">Core Frameworks</p>
-                </div>
-                <div>
-                    <span style="font-family: var(--font-head); font-size: 3rem;">100%</span>
-                    <p style="font-weight: 700; text-transform: uppercase;">Open Source</p>
-                </div>
-            </div>
+        <div class="cat-desc">
+          <p>Computer vision projects spanning generative modeling, recognition, and self-supervised representation learning—built as complete ML workflows.</p>
         </div>
-    </section>
+      </div>
 
-    <section id="articles" class="category-section">
-
-        <div class="category-row">
-            <div class="cat-info">
-                <div>
-                    <h3 class="cat-title">MCP<br>Protocols</h3>
-                </div>
-                <div class="cat-desc">
-                    <p>Researching the Model Context Protocol to standardize how agents connect with external tools and data.</p>
-                </div>
+      <div class="cat-articles">
+        <div class="article-item">
+          <a href="https://github.com/WoodyChang21/Conditional-GAN-Colorization" class="article-link" target="_blank" rel="noopener">
+            <div style="flex: 1;">
+              <div class="article-title">Conditional GAN Colorization</div>
+              <div class="article-meta">CNN • cGAN • Image-to-Image • Adversarial Training • Perceptual Quality</div>
+              <div class="article-desc">
+                Image colorization with conditional GANs—explores adversarial objectives for sharper, more realistic outputs and compares qualitative results across samples.
+              </div>
             </div>
-            <div class="cat-articles">
-                <div class="article-item">
-                    <a href="https://hackmd.io/@WoodyChang1121/BkZqYuG9lx" class="article-link">
-                        <div style="flex: 1;">
-                            <div class="article-title">MCP Fundamentals: Building Your First Server</div>
-                            <div class="article-meta">LangChain • Python • Model Context Protocol • Streamlit • Server-Sent Events</div>
-                            <div class="article-desc">A comprehensive introduction to the Model Context Protocol (MCP) - the standardized way to connect AI agents with external tools and data sources. Learn to build your first MCP server from scratch, understand the protocol architecture, and explore hands-on examples.</div>
-                        </div>
-                        <div class="article-actions">
-                            <a href="https://github.com/WoodyChang21/MCP" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
-                        </div>
-                    </a>
-                </div>
-                <div class="article-item">
-                    <a href="https://hackmd.io/@WoodyChang1121/S11Tazrcge" class="article-link">
-                        <div style="flex: 1;">
-                            <div class="article-title">MCP + LangChain: From NPX to Production</div>
-                            <div class="article-meta">LangChain • Python • Model Context Protocol • Streamlit • Server-Sent Events</div>
-                            <div class="article-desc">Discover how to connect LangChain agents to pre-built MCP servers and build production-ready AI applications. This guide covers everything from NPX server integration to creating interactive Streamlit applications with real-time data visualization.</div>
-                        </div>
-                        <div class="article-actions">
-                            <a href="https://github.com/WoodyChang21/MCP" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
-                        </div>
-                    </a>
-                </div>
+            <div class="article-actions">
+              <span class="article-github">View GitHub</span>
             </div>
+          </a>
         </div>
 
-        <div class="category-row">
-            <div class="cat-info">
-                <div>
-                    <h3 class="cat-title">LangGraph<br>Systems</h3>
-                </div>
-                <div class="cat-desc">
-                    <p>Moving from chains to cyclic graphs. Building orchestration layers for complex, multi-step reasoning tasks.</p>
-                </div>
+        <div class="article-item">
+          <a href="https://github.com/WoodyChang21/Sign-Language-Recognition" class="article-link" target="_blank" rel="noopener">
+            <div style="flex: 1;">
+              <div class="article-title">Sign Language Recognition</div>
+              <div class="article-meta">CNN • Classification • Video/Frames • Data Pipeline • Metrics</div>
+              <div class="article-desc">
+                End-to-end sign language recognition pipeline with model training and evaluation—emphasizes dataset handling, augmentation, and robust validation.
+              </div>
             </div>
-            <div class="cat-articles">
-                <div class="article-item">
-                    <a href="https://hackmd.io/@WoodyChang1121/SkJ0nysk-l" class="article-link">
-                        <div style="flex: 1;">
-                            <div class="article-title">AI-Powered SQL & Visualization Swarm</div>
-                            <div class="article-meta">LangGraph • Docker • Redis • AWS S3 • PostgreSQL • Open WebUI</div>
-                            <div class="article-desc">Build a production-ready multi-agent system with LangGraph where specialized agents handle SQL queries and data visualization through intelligent coordination—then deploy it two ways: LangGraph CLI with Agent Chat UI for rapid prototyping, or Docker Compose with Open WebUI for production.</div>
-                        </div>
-                        <div class="article-actions">
-                            <a href="https://github.com/WoodyChang21/langgraph_data_swarm" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
-                        </div>
-                    </a>
-                </div>
-                <div class="article-item">
-                    <a href="https://hackmd.io/@WoodyChang1121/SkFd4yJulg" class="article-link">
-                        <div style="flex: 1;">
-                            <div class="article-title">Advanced RAG with Self Evaluation</div>
-                            <div class="article-meta">LangGraph • Python • LangSmith • Pydantic • API Integration</div>
-                            <div class="article-desc">Exploring advanced Retrieval-Augmented Generation techniques using LangChain's LangGraph framework. This article delves into sophisticated information retrieval patterns and graph-based reasoning for enhanced AI responses, demonstrating complex workflow orchestration and multi-step reasoning processes.</div>
-                        </div>
-                        <div class="article-actions">
-                        </div>
-                    </a>
-                </div>
-                <div class="article-item">
-                    <a href="https://hackmd.io/@WoodyChang1121/BybWgQ3Ygx" class="article-link">
-                        <div style="flex: 1;">
-                            <div class="article-title">MongoDB Query & Visualization with NL</div>
-                            <div class="article-meta">LangGraph • MongoDB • Python • Data Visualization • Matplotlib</div>
-                            <div class="article-desc">Learn how to build an end-to-end pipeline with LangGraph that converts plain English questions into MongoDB queries and automatically generates Python code to produce visual charts. A hands-on guide to combining data retrieval, code generation, and safe execution.</div>
-                        </div>
-                        <div class="article-actions">
-                        </div>
-                    </a>
-                </div>
-                <div class="article-item">
-                    <a href="https://hackmd.io/zpwWNdhHTz-Aj9JEHjpqkA" class="article-link">
-                        <div style="flex: 1;">
-                            <div class="article-title">Document Web Crawling + RAG Chatbot</div>
-                            <div class="article-meta">LangChain • Pinecone • MongoDB Atlas • Web Scraping • OpenAI API</div>
-                            <div class="article-desc">Comprehensive implementation of a document-aware chatbot using LangChain for web crawling, document processing, and Retrieval-Augmented Generation. Features intelligent document ingestion, semantic search capabilities, and context-aware responses for enhanced user interactions.</div>
-                        </div>
-                        <div class="article-actions">
-                            <a href="https://github.com/WoodyChang21/LangGraph_RAG_Chatbot" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
-                        </div>
-                    </a>
-                </div>
+            <div class="article-actions">
+              <span class="article-github">View GitHub</span>
             </div>
+          </a>
         </div>
 
-        <div class="category-row">
-            <div class="cat-info">
-                <div>
-                    <h3 class="cat-title">Semantic<br>Kernel</h3>
-                </div>
-                <div class="cat-desc">
-                    <p>Deep dive into Microsoft's SDK. Focusing on memory management, security (RBAC), and plugin architecture.</p>
-                </div>
+        <div class="article-item">
+          <a href="https://github.com/WoodyChang21/Self-Supervised-Object-Detection-and-Classification" class="article-link" target="_blank" rel="noopener">
+            <div style="flex: 1;">
+              <div class="article-title">Self-Supervised Detection & Classification</div>
+              <div class="article-meta">Self-Supervised Learning • Representation Learning • Object Detection • Transfer</div>
+              <div class="article-desc">
+                Studies self-supervised representations and how they transfer to downstream detection/classification tasks—focused on learning strong features with minimal labels.
+              </div>
             </div>
-            <div class="cat-articles">
-                <div class="article-item">
-                    <a href="https://hackmd.io/@WoodyChang1121/BkEXT_zHxl" class="article-link">
-                        <div style="flex: 1;">
-                            <div class="article-title">Creating AI Agents with Semantic Kernel</div>
-                            <div class="article-meta">Semantic Kernel • Python • Azure OpenAI • REST API</div>
-                            <div class="article-desc">A comprehensive guide to building highly scalable and flexible AI Agent systems using Microsoft Semantic Kernel. This article explores the evolution from multi-agent architectures to a single agent with multiple plugin tools approach, demonstrating superior handling of multi-intent queries and enhanced system flexibility.</div>
-                        </div>
-                        <div class="article-actions">
-                        </div>
-                    </a>
-                </div>
-                <div class="article-item">
-                    <a href="https://hackmd.io/@WoodyChang1121/BJoXWPmHgl" class="article-link">
-                        <div style="flex: 1;">
-                            <div class="article-title">Memory Management Evolution</div>
-                            <div class="article-meta">Python • Redis • NoSQL • Data Serialization</div>
-                            <div class="article-desc">Deep dive into the evolution of conversation memory management systems. This technical report covers the structural limitations of Redis-based storage and introduces the revolutionary ChatHistoryAgentThread architecture for superior context preservation, tool call tracking, and personalized user experiences.</div>
-                        </div>
-                        <div class="article-actions">
-                        </div>
-                    </a>
-                </div>
-                <div class="article-item">
-                    <a href="https://hackmd.io/@WoodyChang1121/ryfZCX5Heg" class="article-link">
-                        <div style="flex: 1;">
-                            <div class="article-title">User Permission System (RBAC) Implementation</div>
-                            <div class="article-meta">Semantic Kernel • Python • Authentication • REST API • RBAC</div>
-                            <div class="article-desc">Complete implementation of Role-Based Access Control (RBAC) system for LINE chatbot applications using Semantic Kernel agents. Features dual authentication through email verification, function-level access control based on user roles, and comprehensive security considerations for enterprise deployment.</div>
-                        </div>
-                        <div class="article-actions">
-                        </div>
-                    </a>
-                </div>
+            <div class="article-actions">
+              <span class="article-github">View GitHub</span>
             </div>
+          </a>
         </div>
 
-        <div class="category-row">
-            <div class="cat-info">
-                <div>
-                    <h3 class="cat-title">Prompt<br>Engineering</h3>
-                </div>
-                <div class="cat-desc">
-                    <p>The science of communication with LLMs. Techniques for consistency and reliability.</p>
-                </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===================== -->
+  <!-- ARTICLES (EXISTING) -->
+  <!-- ===================== -->
+  <section id="articles" class="category-section">
+
+    <div class="category-row">
+      <div class="cat-info">
+        <div>
+          <div class="section-label">Articles</div>
+          <h3 class="cat-title">MCP<br />Protocols</h3>
+        </div>
+        <div class="cat-desc">
+          <p>Researching the Model Context Protocol to standardize how agents connect with external tools and data.</p>
+        </div>
+      </div>
+      <div class="cat-articles">
+        <div class="article-item">
+          <a href="https://hackmd.io/@WoodyChang1121/BkZqYuG9lx" class="article-link">
+            <div style="flex: 1;">
+              <div class="article-title">MCP Fundamentals: Building Your First Server</div>
+              <div class="article-meta">LangChain • Python • Model Context Protocol • Streamlit • Server-Sent Events</div>
+              <div class="article-desc">A comprehensive introduction to the Model Context Protocol (MCP) - the standardized way to connect AI agents with external tools and data sources. Learn to build your first MCP server from scratch, understand the protocol architecture, and explore hands-on examples.</div>
             </div>
-            <div class="cat-articles">
-                <div class="article-item">
-                    <a href="https://hackmd.io/@WoodyChang1121/ByiuVVgcel" class="article-link">
-                        <div style="flex: 1;">
-                            <div class="article-title">A Practical Guide to Effective LLM Prompts</div>
-                            <div class="article-meta">Best Practices // Methodology</div>
-                            <div class="article-desc">Prompt engineering is the art and science of designing inputs that steer large language models (LLMs) toward reliable, accurate, and useful outputs. This guide introduces the anatomy of a prompt, explains common prompting paradigms (Zero-Shot, Few-Shot, Chain-of-Thought, ReAct), and shares practical techniques and templates you can use immediately.</div>
-                        </div>
-                        <div class="article-actions">
-                        </div>
-                    </a>
-                </div>
+            <div class="article-actions">
+              <a href="https://github.com/WoodyChang21/MCP" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
             </div>
+          </a>
         </div>
-
-    </section>
-
-    <footer id="contact">
-        <div class="social-links">
-            <a href="https://github.com/WoodyChang21">GitHub</a>
-            <a href="https://www.linkedin.com/in/woody-chang/">LinkedIn</a>
-            <a href="mailto:contact@woodychang.ai">Email</a>
-            <a href="resume.pdf" target="_blank">Resume</a>
+        <div class="article-item">
+          <a href="https://hackmd.io/@WoodyChang1121/S11Tazrcge" class="article-link">
+            <div style="flex: 1;">
+              <div class="article-title">MCP + LangChain: From NPX to Production</div>
+              <div class="article-meta">LangChain • Python • Model Context Protocol • Streamlit • Server-Sent Events</div>
+              <div class="article-desc">Discover how to connect LangChain agents to pre-built MCP servers and build production-ready AI applications. This guide covers everything from NPX server integration to creating interactive Streamlit applications with real-time data visualization.</div>
+            </div>
+            <div class="article-actions">
+              <a href="https://github.com/WoodyChang21/MCP" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
+            </div>
+          </a>
         </div>
-        <div style="margin: 2rem 0;">
-            <p style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; margin-bottom: 0.5rem;">
-                Total Visitors: <span id="visitor-count" style="font-family: var(--font-head); font-size: 1.2rem;">Loading...</span>
-            </p>
+      </div>
+    </div>
+
+    <div class="category-row">
+      <div class="cat-info">
+        <div>
+          <div class="section-label">Articles</div>
+          <h3 class="cat-title">LangGraph<br />Systems</h3>
         </div>
-        <p style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; opacity: 0.7;">
-            © 2025 Woody Chang. Built for documentation purposes.
-        </p>
-    </footer>
+        <div class="cat-desc">
+          <p>Moving from chains to cyclic graphs. Building orchestration layers for complex, multi-step reasoning tasks.</p>
+        </div>
+      </div>
+      <div class="cat-articles">
+        <div class="article-item">
+          <a href="https://hackmd.io/@WoodyChang1121/SkJ0nysk-l" class="article-link">
+            <div style="flex: 1;">
+              <div class="article-title">AI-Powered SQL & Visualization Swarm</div>
+              <div class="article-meta">LangGraph • Docker • Redis • AWS S3 • PostgreSQL • Open WebUI</div>
+              <div class="article-desc">Build a production-ready multi-agent system with LangGraph where specialized agents handle SQL queries and data visualization through intelligent coordination—then deploy it two ways: LangGraph CLI with Agent Chat UI for rapid prototyping, or Docker Compose with Open WebUI for production.</div>
+            </div>
+            <div class="article-actions">
+              <a href="https://github.com/WoodyChang21/langgraph_data_swarm" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
+            </div>
+          </a>
+        </div>
+        <div class="article-item">
+          <a href="https://hackmd.io/@WoodyChang1121/SkFd4yJulg" class="article-link">
+            <div style="flex: 1;">
+              <div class="article-title">Advanced RAG with Self Evaluation</div>
+              <div class="article-meta">LangGraph • Python • LangSmith • Pydantic • API Integration</div>
+              <div class="article-desc">Exploring advanced Retrieval-Augmented Generation techniques using LangChain's LangGraph framework. This article delves into sophisticated information retrieval patterns and graph-based reasoning for enhanced AI responses, demonstrating complex workflow orchestration and multi-step reasoning processes.</div>
+            </div>
+            <div class="article-actions"></div>
+          </a>
+        </div>
+        <div class="article-item">
+          <a href="https://hackmd.io/@WoodyChang1121/BybWgQ3Ygx" class="article-link">
+            <div style="flex: 1;">
+              <div class="article-title">MongoDB Query & Visualization with NL</div>
+              <div class="article-meta">LangGraph • MongoDB • Python • Data Visualization • Matplotlib</div>
+              <div class="article-desc">Learn how to build an end-to-end pipeline with LangGraph that converts plain English questions into MongoDB queries and automatically generates Python code to produce visual charts. A hands-on guide to combining data retrieval, code generation, and safe execution.</div>
+            </div>
+            <div class="article-actions"></div>
+          </a>
+        </div>
+        <div class="article-item">
+          <a href="https://hackmd.io/zpwWNdhHTz-Aj9JEHjpqkA" class="article-link">
+            <div style="flex: 1;">
+              <div class="article-title">Document Web Crawling + RAG Chatbot</div>
+              <div class="article-meta">LangChain • Pinecone • MongoDB Atlas • Web Scraping • OpenAI API</div>
+              <div class="article-desc">Comprehensive implementation of a document-aware chatbot using LangChain for web crawling, document processing, and Retrieval-Augmented Generation. Features intelligent document ingestion, semantic search capabilities, and context-aware responses for enhanced user interactions.</div>
+            </div>
+            <div class="article-actions">
+              <a href="https://github.com/WoodyChang21/LangGraph_RAG_Chatbot" class="article-github" onclick="event.stopPropagation();">View GitHub</a>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
 
-    <script>
-        async function updateVisitorCount() {
-            const el = document.getElementById("visitor-count");
-            if (!el) return;
+    <div class="category-row">
+      <div class="cat-info">
+        <div>
+          <div class="section-label">Articles</div>
+          <h3 class="cat-title">Semantic<br />Kernel</h3>
+        </div>
+        <div class="cat-desc">
+          <p>Deep dive into Microsoft's SDK. Focusing on memory management, security (RBAC), and plugin architecture.</p>
+        </div>
+      </div>
+      <div class="cat-articles">
+        <div class="article-item">
+          <a href="https://hackmd.io/@WoodyChang1121/BkEXT_zHxl" class="article-link">
+            <div style="flex: 1;">
+              <div class="article-title">Creating AI Agents with Semantic Kernel</div>
+              <div class="article-meta">Semantic Kernel • Python • Azure OpenAI • REST API</div>
+              <div class="article-desc">A comprehensive guide to building highly scalable and flexible AI Agent systems using Microsoft Semantic Kernel. This article explores the evolution from multi-agent architectures to a single agent with multiple plugin tools approach, demonstrating superior handling of multi-intent queries and enhanced system flexibility.</div>
+            </div>
+            <div class="article-actions"></div>
+          </a>
+        </div>
+        <div class="article-item">
+          <a href="https://hackmd.io/@WoodyChang1121/BJoXWPmHgl" class="article-link">
+            <div style="flex: 1;">
+              <div class="article-title">Memory Management Evolution</div>
+              <div class="article-meta">Python • Redis • NoSQL • Data Serialization</div>
+              <div class="article-desc">Deep dive into the evolution of conversation memory management systems. This technical report covers the structural limitations of Redis-based storage and introduces the revolutionary ChatHistoryAgentThread architecture for superior context preservation, tool call tracking, and personalized user experiences.</div>
+            </div>
+            <div class="article-actions"></div>
+          </a>
+        </div>
+        <div class="article-item">
+          <a href="https://hackmd.io/@WoodyChang1121/ryfZCX5Heg" class="article-link">
+            <div style="flex: 1;">
+              <div class="article-title">User Permission System (RBAC) Implementation</div>
+              <div class="article-meta">Semantic Kernel • Python • Authentication • REST API • RBAC</div>
+              <div class="article-desc">Complete implementation of Role-Based Access Control (RBAC) system for LINE chatbot applications using Semantic Kernel agents. Features dual authentication through email verification, function-level access control based on user roles, and comprehensive security considerations for enterprise deployment.</div>
+            </div>
+            <div class="article-actions"></div>
+          </a>
+        </div>
+      </div>
+    </div>
 
-            const counterKey = "woodychang.ai::visitor-count";
-            const storageKey = "visitor_counted_yyyymmdd";
+    <div class="category-row">
+      <div class="cat-info">
+        <div>
+          <div class="section-label">Articles</div>
+          <h3 class="cat-title">Prompt<br />Engineering</h3>
+        </div>
+        <div class="cat-desc">
+          <p>The science of communication with LLMs. Techniques for consistency and reliability.</p>
+        </div>
+      </div>
+      <div class="cat-articles">
+        <div class="article-item">
+          <a href="https://hackmd.io/@WoodyChang1121/ByiuVVgcel" class="article-link">
+            <div style="flex: 1;">
+              <div class="article-title">A Practical Guide to Effective LLM Prompts</div>
+              <div class="article-meta">Best Practices // Methodology</div>
+              <div class="article-desc">Prompt engineering is the art and science of designing inputs that steer large language models (LLMs) toward reliable, accurate, and useful outputs. This guide introduces the anatomy of a prompt, explains common prompting paradigms (Zero-Shot, Few-Shot, Chain-of-Thought, ReAct), and shares practical techniques and templates you can use immediately.</div>
+            </div>
+            <div class="article-actions"></div>
+          </a>
+        </div>
+      </div>
+    </div>
 
-            // "unique per day" marker (in the visitor's local time)
-            const now = new Date();
-            const y = now.getFullYear();
-            const m = String(now.getMonth() + 1).padStart(2, "0");
-            const d = String(now.getDate()).padStart(2, "0");
-            const today = `${y}${m}${d}`;
+  </section>
 
-            let shouldHit = false;
+  <footer id="contact">
+    <div class="social-links">
+      <a href="https://github.com/WoodyChang21">GitHub</a>
+      <a href="https://www.linkedin.com/in/woody-chang/">LinkedIn</a>
+      <a href="mailto:contact@woodychang.ai">Email</a>
+      <a href="resume.pdf" target="_blank">Resume</a>
+    </div>
 
-            try {
-                // Decide whether to increment (count unique today)
-                const lastCounted = localStorage.getItem(storageKey);
-                if (lastCounted !== today) {
-                    shouldHit = true;
-                    localStorage.setItem(storageKey, today);
-                }
-            } catch (e) {
-                // If storage is blocked, fall back to counting the visit
-                shouldHit = true;
-            }
+    <div style="margin: 2rem 0;">
+      <p style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; margin-bottom: 0.5rem;">
+        Total Visitors:
+        <span id="visitor-count" style="font-family: var(--font-head); font-size: 1.2rem;">Loading...</span>
+      </p>
+    </div>
 
-            try {
-                if (shouldHit) {
-                    const hitRes = await fetch("https://countapi.maayanlab.cloud/rpc/hit", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ key: counterKey })
-                    });
-                    if (!hitRes.ok) throw new Error(`HIT failed: HTTP ${hitRes.status}`);
-                }
+    <p style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; opacity: 0.7;">
+      © 2025 Woody Chang. Built for documentation purposes.
+    </p>
+  </footer>
 
-                const getRes = await fetch(
-                    `https://countapi.maayanlab.cloud/rpc/get?key=${encodeURIComponent(counterKey)}`
-                );
-                if (!getRes.ok) throw new Error(`GET failed: HTTP ${getRes.status}`);
+  <script>
+    async function updateVisitorCount() {
+      const el = document.getElementById("visitor-count");
+      if (!el) return;
 
-                const data = await getRes.json();
+      const counterKey = "woodychang.ai::visitor-count";
+      const storageKey = "visitor_counted_yyyymmdd";
 
-                // Endpoint can return either a number or an object-ish structure
-                const value =
-                    typeof data === "number" ? data :
-                    typeof data?.[0]?.get === "number" ? data[0].get :
-                    typeof data?.value === "number" ? data.value :
-                    null;
+      // "unique per day" marker (in the visitor's local time)
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      const d = String(now.getDate()).padStart(2, "0");
+      const today = `${y}${m}${d}`;
 
-                el.textContent = (value ?? 0).toLocaleString();
-            } catch (err) {
-                console.error("Visitor counter error:", err);
-                el.textContent = "—";
-            }
+      let shouldHit = false;
+
+      try {
+        const lastCounted = localStorage.getItem(storageKey);
+        if (lastCounted !== today) {
+          shouldHit = true;
+          localStorage.setItem(storageKey, today);
+        }
+      } catch (e) {
+        shouldHit = true;
+      }
+
+      try {
+        if (shouldHit) {
+          const hitRes = await fetch("https://countapi.maayanlab.cloud/rpc/hit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ key: counterKey })
+          });
+          if (!hitRes.ok) throw new Error(`HIT failed: HTTP ${hitRes.status}`);
         }
 
-        if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", updateVisitorCount);
-        } else {
-            updateVisitorCount();
-        }
-    </script>
+        const getRes = await fetch(
+          `https://countapi.maayanlab.cloud/rpc/get?key=${encodeURIComponent(counterKey)}`
+        );
+        if (!getRes.ok) throw new Error(`GET failed: HTTP ${getRes.status}`);
 
+        const data = await getRes.json();
+
+        const value =
+          typeof data === "number" ? data :
+          typeof data?.[0]?.get === "number" ? data[0].get :
+          typeof data?.value === "number" ? data.value :
+          null;
+
+        el.textContent = (value ?? 0).toLocaleString();
+      } catch (err) {
+        console.error("Visitor counter error:", err);
+        el.textContent = "—";
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", updateVisitorCount);
+    } else {
+      updateVisitorCount();
+    }
+  </script>
 </body>
 </html>
