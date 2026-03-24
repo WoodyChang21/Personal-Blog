@@ -28,7 +28,7 @@ function HomePage() {
           sections={deepLearningSections}
           theme="light"
         />
-        <div className="shell border-x-2 border-b-2 border-black bg-black py-1.5" aria-hidden="true" />
+        <div className="shell border-b-2 border-black bg-black py-1.5" aria-hidden="true" />
         <SectionGroup
           id="agents"
           kicker="Chapter 02"

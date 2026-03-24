@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { navigationLinks } from '../data/content';
+import ActionButton from './ui/ActionButton';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="shell sticky top-0 z-50 pt-0">
-      <nav className="border-x-2 border-b-2 border-black bg-white/95 backdrop-blur">
-        <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-5 sm:px-6 lg:px-10">
+    <div className="shell sticky top-0 z-50">
+      <nav className="border-b-2 border-black bg-white/95 backdrop-blur">
+        <div className="page-padding flex flex-wrap items-center justify-between gap-4 py-5">
           <a className="font-display text-2xl uppercase tracking-[-0.06em]" href="#top">
             Woody Chang
           </a>
 
           <button
             type="button"
-            className="inline-flex border-2 border-black px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] md:hidden"
+            className="inline-flex border-2 border-black bg-white px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] md:hidden"
             aria-expanded={isMenuOpen}
             aria-label="Toggle navigation menu"
             onClick={() => setIsMenuOpen((current) => !current)}
@@ -37,14 +38,13 @@ function Navbar() {
               ))}
             </div>
 
-            <a
-              className="action-button action-button-solid"
+            <ActionButton
               href="https://github.com/WoodyChang21"
               target="_blank"
               rel="noreferrer"
             >
               GitHub Profile
-            </a>
+            </ActionButton>
           </div>
 
           {isMenuOpen ? (
@@ -63,14 +63,14 @@ function Navbar() {
                 ))}
               </div>
 
-              <a
-                className="action-button action-button-solid w-full"
+              <ActionButton
+                className="w-full"
                 href="https://github.com/WoodyChang21"
                 target="_blank"
                 rel="noreferrer"
               >
                 GitHub Profile
-              </a>
+              </ActionButton>
             </div>
           ) : null}
         </div>
