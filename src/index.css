@@ -1,0 +1,90 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Archivo Black', sans-serif;
+  --font-sans: 'DM Sans', sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply m-0 min-w-[320px] overflow-x-hidden bg-white font-sans text-black antialiased;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+
+  img {
+    @apply block max-w-full;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  section {
+    scroll-margin-top: 6rem;
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+
+  ::selection {
+    @apply bg-black text-white;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-[1440px];
+  }
+
+  .section-stack {
+    @apply border-x-2 border-black bg-white;
+  }
+
+  .eyebrow {
+    @apply inline-block font-sans text-[0.78rem] font-bold uppercase tracking-[0.24em];
+  }
+
+  .display-title {
+    @apply font-display uppercase leading-[0.92] tracking-[-0.04em];
+  }
+
+  .action-button {
+    @apply inline-flex items-center justify-center border-2 border-black px-6 py-3 text-sm font-bold uppercase tracking-[0.08em] transition-all duration-200;
+  }
+
+  .action-button-solid {
+    @apply bg-black text-white hover:-translate-y-0.5 hover:bg-white hover:text-black;
+  }
+
+  .action-button-outline {
+    @apply bg-transparent text-black hover:-translate-y-0.5 hover:bg-black hover:text-white;
+  }
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
