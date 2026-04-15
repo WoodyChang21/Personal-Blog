@@ -1,64 +1,135 @@
-import LabelPill from './ui/LabelPill';
-
 function getItemKind(item) {
   const hasCodeLink = Boolean(item.githubHref) || item.href.includes('github.com');
   const hasArticleLink = item.href.includes('hackmd.io');
 
-  if (hasCodeLink && hasArticleLink) {
-    return 'Article + Code';
-  }
-
-  if (hasArticleLink) {
-    return 'Article';
-  }
-
+  if (hasCodeLink && hasArticleLink) return 'Article + Code';
+  if (hasArticleLink) return 'Article';
   return 'Project';
 }
 
-function ArticleCard({ item }) {
+function ArticleCard({ item, theme = 'light', isFirst = false }) {
+  const isDark = theme === 'dark';
   const hasGithubLink = Boolean(item.githubHref);
   const kindLabel = getItemKind(item);
 
+  const borderColor = isDark ? 'rgba(221,220,212,0.1)' : 'rgba(17,17,16,0.1)';
+  const titleColor = isDark ? '#dddcd4' : '#111110';
+  const metaColor = isDark ? 'rgba(221,220,212,0.42)' : 'rgba(17,17,16,0.45)';
+  const descColor = isDark ? 'rgba(221,220,212,0.68)' : 'rgba(17,17,16,0.68)';
+  const kindBorder = isDark ? 'rgba(221,220,212,0.2)' : 'rgba(17,17,16,0.18)';
+  const kindColor = isDark ? 'rgba(221,220,212,0.55)' : 'rgba(17,17,16,0.55)';
+
+  const btnBase = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: 120,
+    padding: '8px 14px',
+    fontFamily: "'Space Mono', monospace",
+    fontSize: 8,
+    letterSpacing: '0.2em',
+    textTransform: 'uppercase',
+    transition: 'all 0.18s ease',
+    border: '1px solid',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: 'inherit',
+  };
+
+  const btnSolid = isDark
+    ? { ...btnBase, borderColor: '#dddcd4', backgroundColor: '#dddcd4', color: '#181816' }
+    : { ...btnBase, borderColor: '#111110', backgroundColor: '#111110', color: '#f0ede8' };
+
+  const btnOutline = isDark
+    ? { ...btnBase, borderColor: 'rgba(221,220,212,0.4)', backgroundColor: 'transparent', color: '#dddcd4' }
+    : { ...btnBase, borderColor: 'rgba(17,17,16,0.35)', backgroundColor: 'transparent', color: '#111110' };
+
   return (
-    <article className="group border-b border-black/15 py-6 first:border-t first:border-black/15 hover:bg-black/[0.02] hover:px-4">
+    <article
+      style={{
+        borderBottom: `1px solid ${borderColor}`,
+        borderTop: isFirst ? `1px solid ${borderColor}` : undefined,
+        padding: '22px 0',
+      }}
+    >
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
         <div className="flex-1">
-          <div className="mb-3 flex flex-wrap gap-2">
-            <LabelPill className="bg-[#f7f7f7]">{kindLabel}</LabelPill>
+          {/* Kind pill */}
+          <div style={{ marginBottom: 10 }}>
+            <span
+              style={{
+                fontFamily: "'Space Mono', monospace",
+                fontSize: 7.5,
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color: kindColor,
+                border: `1px solid ${kindBorder}`,
+                padding: '2px 8px',
+              }}
+            >
+              {kindLabel}
+            </span>
           </div>
 
-          <a className="inline-block" href={item.href} target="_blank" rel="noreferrer">
-            <h4 className="text-lg font-bold uppercase transition group-hover:underline sm:text-2xl">
+          {/* Title */}
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noreferrer"
+            style={{ display: 'inline-block', color: titleColor }}
+          >
+            <h4
+              style={{
+                fontFamily: "'Space Mono', monospace",
+                fontSize: 'clamp(0.82rem, 1.5vw, 1rem)',
+                fontWeight: 700,
+                lineHeight: 1.45,
+                color: titleColor,
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+              }}
+            >
               {item.title}
             </h4>
           </a>
 
-          <p className="mt-2 text-[0.82rem] font-medium leading-6 text-black/55 sm:text-sm">
+          {/* Meta tags */}
+          <p
+            style={{
+              fontFamily: "'Space Mono', monospace",
+              fontSize: 10,
+              lineHeight: 1.7,
+              color: metaColor,
+              marginTop: 8,
+              letterSpacing: '0.02em',
+            }}
+          >
             {item.meta}
           </p>
 
-          <p className="mt-4 max-w-4xl text-[0.98rem] leading-7 text-black/72 sm:text-base">
+          {/* Description */}
+          <p
+            style={{
+              fontFamily: "'Space Mono', monospace",
+              fontSize: 12,
+              lineHeight: 1.85,
+              color: descColor,
+              marginTop: 12,
+              maxWidth: '64ch',
+            }}
+          >
             {item.description}
           </p>
         </div>
 
-        <div className="flex shrink-0 items-start">
+        {/* CTA button */}
+        <div style={{ flexShrink: 0, display: 'flex', alignItems: 'flex-start', paddingTop: 2 }}>
           {hasGithubLink ? (
-            <a
-              className="inline-flex min-w-[132px] justify-center border border-black bg-black px-4 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-white transition hover:-translate-y-0.5 hover:bg-white hover:text-black"
-              href={item.githubHref}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={item.githubHref} target="_blank" rel="noreferrer" style={btnSolid}>
               {item.githubLabel}
             </a>
           ) : (
-            <a
-              className="inline-flex min-w-[132px] justify-center border border-black px-4 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.14em] transition hover:-translate-y-0.5 hover:bg-black hover:text-white"
-              href={item.href}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={item.href} target="_blank" rel="noreferrer" style={btnOutline}>
               {item.githubLabel ?? 'Read Article'}
             </a>
           )}

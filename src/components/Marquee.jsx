@@ -1,16 +1,33 @@
 function Marquee({ items }) {
-  const content = [...items, ...items].join(' // ');
+  const content = [...items, ...items].join('  //  ');
 
   return (
-    <section className="shell border-x-2 border-b-2 border-black bg-black text-white" aria-label="Highlights">
-      <div className="overflow-hidden py-4 font-display text-base uppercase tracking-[0.16em] sm:text-lg">
-        <div
-          className="inline-block whitespace-nowrap"
-          aria-hidden="true"
-          style={{ animation: 'marquee-scroll 20s linear infinite' }}
+    <section
+      aria-label="Highlights"
+      style={{
+        backgroundColor: '#111110',
+        borderBottom: '1px solid rgba(221,220,212,0.08)',
+        overflow: 'hidden',
+        padding: '14px 0',
+      }}
+    >
+      <div
+        aria-hidden="true"
+        style={{ display: 'inline-block', whiteSpace: 'nowrap', animation: 'marquee-scroll 26s linear infinite' }}
+      >
+        <span
+          style={{
+            paddingLeft: '100vw',
+            fontFamily: "'Space Mono', monospace",
+            fontSize: 8.5,
+            textTransform: 'uppercase',
+            letterSpacing: '0.3em',
+            color: '#dddcd4',
+            opacity: 0.45,
+          }}
         >
-          <span style={{ paddingLeft: '100%' }}>{content}</span>
-        </div>
+          {content}
+        </span>
       </div>
     </section>
   );

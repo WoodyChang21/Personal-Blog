@@ -1,13 +1,20 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'Archivo Black', sans-serif;
-  --font-sans: 'DM Sans', sans-serif;
+  /* Playfair Display for dramatic serif headings */
+  --font-display: 'Playfair Display', serif;
+  /* Anton for the logo mark */
+  --font-logo: 'Anton', sans-serif;
+  /* Space Mono for body, nav, labels — the aristide body font */
+  --font-sans: 'Space Mono', 'Courier New', monospace;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
 }
 
 @layer base {
-  * {
+  *, *::before, *::after {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
   html {
@@ -15,91 +22,201 @@
   }
 
   body {
-    @apply m-0 min-w-[320px] overflow-x-hidden bg-white font-sans text-black antialiased;
-    background-image:
-      linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
-    background-size: 28px 28px;
+    font-family: 'Space Mono', 'Courier New', monospace;
+    background-color: #181816;
+    color: #dddcd4;
+    min-width: 320px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    cursor: default;
   }
 
-  a {
-    @apply text-inherit no-underline;
+  a, a:link, a:visited, a:hover, a:active {
+    color: inherit;
+    text-decoration: none;
   }
 
   img {
-    @apply block max-w-full;
+    display: block;
+    max-width: 100%;
   }
 
-  button,
-  input,
-  textarea,
-  select {
+  button, input, textarea, select {
     font: inherit;
   }
 
   section {
-    scroll-margin-top: 6rem;
+    scroll-margin-top: 54px;
   }
 
   #root {
-    @apply min-h-screen;
+    min-height: 100vh;
   }
 
   ::selection {
-    @apply bg-black text-white;
+    background: #dddcd4;
+    color: #181816;
   }
 }
 
 @layer components {
+  /* ── Layout ────────────────────────── */
   .shell {
-    @apply w-full;
-  }
-
-  .section-stack {
-    @apply border-x-2 border-black bg-white;
+    width: 100%;
   }
 
   .page-padding {
-    @apply px-4 sm:px-6 lg:px-10;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 
-  .surface-panel {
-    @apply border border-black/15 bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.04)];
+  @media (min-width: 640px) {
+    .page-padding { padding-left: 40px; padding-right: 40px; }
   }
 
+  @media (min-width: 1024px) {
+    .page-padding { padding-left: 60px; padding-right: 60px; }
+  }
+
+  /* section-stack is now a plain full-width container */
+  .section-stack {
+    width: 100%;
+  }
+
+  /* ── Aristide micro-typography ─────── */
+  /* Tiny uppercase tracked labels — the core UI text style */
   .eyebrow {
-    @apply inline-block font-sans text-[0.78rem] font-bold uppercase tracking-[0.24em];
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    opacity: 0.55;
   }
 
+  .footer-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    line-height: 1.85;
+  }
+
+  /* ── Display / hero type ───────────── */
+  /* Playfair Display 900 for dramatic section titles */
   .display-title {
-    @apply font-display uppercase leading-[0.92] tracking-[-0.04em];
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.02em;
   }
 
+  /* ── Buttons (dark-bg default) ─────── */
   .action-button {
-    @apply inline-flex items-center justify-center border-2 border-black px-6 py-3 text-sm font-bold uppercase tracking-[0.08em] transition-all duration-200;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    transition: all 0.2s ease;
   }
 
-  .action-button-solid {
-    @apply bg-black text-white hover:-translate-y-0.5 hover:bg-white hover:text-black;
+  /* Chained selectors give specificity (0,2,0) > a:visited (0,1,1) */
+  .action-button.action-button-solid {
+    border-color: #dddcd4;
+    background-color: #dddcd4;
+    color: #181816;
+  }
+  .action-button.action-button-solid:hover {
+    background-color: transparent;
+    color: #dddcd4;
   }
 
-  .action-button-outline {
-    @apply bg-transparent text-black hover:-translate-y-0.5 hover:bg-black hover:text-white;
+  .action-button.action-button-outline {
+    border-color: rgba(221, 220, 212, 0.5);
+    background-color: transparent;
+    color: #dddcd4;
+  }
+  .action-button.action-button-outline:hover {
+    border-color: #dddcd4;
+    background-color: #dddcd4;
+    color: #181816;
   }
 
-  .grid-paper {
-    background-image:
-      linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
-    background-size: 32px 32px;
+  .action-button.action-button-solid-ink {
+    border-color: #111110;
+    background-color: #111110;
+    color: #cfcdc8;
+  }
+  .action-button.action-button-solid-ink:hover {
+    background-color: transparent;
+    color: #111110;
+  }
+
+  .action-button.action-button-outline-ink {
+    border-color: rgba(17, 17, 16, 0.4);
+    background-color: transparent;
+    color: #111110;
+  }
+  .action-button.action-button-outline-ink:hover {
+    border-color: #111110;
+    background-color: #111110;
+    color: #cfcdc8;
+  }
+
+  /* ── Hero inner layout ─────────────── */
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    min-height: 75vh;
+  }
+
+  @media (min-width: 768px) {
+    .hero-inner {
+      padding-top: 80px;
+      padding-bottom: 80px;
+      min-height: calc(100vh - 54px);
+    }
+  }
+
+  /* ── Tick bars (decorative) ─────────── */
+  .ticks {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 20px;
+  }
+
+  .tick {
+    width: 1.5px;
+    background: currentColor;
+    opacity: 0.38;
+    flex-shrink: 0;
+  }
+
+  /* ── Surface panel ──────────────────── */
+  .surface-panel {
+    border: 1px solid rgba(221, 220, 212, 0.14);
+  }
+
+  /* surface-panel on light bg */
+  .surface-panel-ink {
+    border: 1px solid rgba(17, 17, 16, 0.14);
+    background-color: rgba(255, 255, 255, 0.4);
   }
 }
 
 @keyframes marquee-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }

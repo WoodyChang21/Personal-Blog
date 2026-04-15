@@ -14,9 +14,9 @@ import {
 
 function HomePage() {
   return (
-    <div className="bg-white pb-8">
+    <div style={{ backgroundColor: '#181816' }}>
       <Navbar />
-      <main className="space-y-0">
+      <main>
         <Hero />
         <Marquee items={marqueeItems} />
         <AboutSection stats={introStats} />
@@ -28,7 +28,6 @@ function HomePage() {
           sections={deepLearningSections}
           theme="light"
         />
-        <div className="shell border-b-2 border-black bg-black py-1.5" aria-hidden="true" />
         <SectionGroup
           id="agents"
           kicker="Chapter 02"

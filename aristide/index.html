@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aristide — Independent Developer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:wght@900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      cursor: default;
+    }
+
+    body { font-family: 'Space Mono', 'Courier New', monospace; }
+
+    /* ── SHARED LAYOUT ───────────────────────── */
+    .view {
+      position: fixed; inset: 0;
+      display: flex; flex-direction: column;
+      transition: opacity 0.55s ease;
+    }
+    .view.hidden { opacity: 0; pointer-events: none; }
+
+    .logo {
+      font-family: 'Anton', sans-serif;
+      font-size: 16px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .about-link {
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+
+    .footer-label {
+      font-size: 8px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      line-height: 1.85;
+    }
+
+    /* tick bars */
+    .ticks { display: flex; align-items: center; gap: 2px; height: 20px; }
+    .tick { width: 1.5px; background: currentColor; opacity: 0.38; }
+
+    /* ── HOME VIEW (dark) ────────────────────── */
+    #home {
+      background: #181816;
+      color: #dddcd4;
+    }
+
+    #home nav {
+      height: 54px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 30px;
+    }
+
+    .gallery-area {
+      flex: 1;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 60px;
+      overflow: hidden;
+    }
+
+    .strips-row {
+      display: flex;
+      gap: 4px;
+      height: 265px;
+      align-items: stretch;
+    }
+
+    .strip {
+      flex-shrink: 0;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .strip img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%) brightness(0.58);
+      transition: filter 0.25s ease;
+    }
+    .strip:hover img { filter: grayscale(100%) brightness(0.78); }
+
+    #home footer {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding: 0 30px 22px;
+      flex-shrink: 0;
+    }
+
+    /* ── PROJECT VIEW (light grey) ───────────── */
+    #project {
+      background: #cfcdc8;
+      color: #111110;
+    }
+
+    #project nav {
+      height: 54px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 30px;
+    }
+
+    .counter-group {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 10px; letter-spacing: 0.1em;
+    }
+
+    .counter-sep { width: 1.5px; height: 13px; background: currentColor; opacity: 0.4; }
+
+    .counter-box {
+      width: 26px; height: 14px;
+      border: 1px solid currentColor;
+      opacity: 0.65;
+      flex-shrink: 0;
+    }
+
+    /* Main 3-column layout */
+    .project-stage {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Side panels */
+    .side {
+      width: 17%;
+      position: relative; overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .side-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      filter: grayscale(100%) brightness(0.88);
+      opacity: 0.5;
+    }
+
+    /* Giant letters — P and H sit in side panels */
+    .mega {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(180px, 38vw, 560px);
+      line-height: 0.82;
+      color: #111110;
+      position: absolute;
+      z-index: 3;
+      user-select: none;
+    }
+
+    .mega-P {
+      right: -0.06em;
+      top: 50%; transform: translateY(-52%);
+    }
+
+    .mega-H {
+      left: -0.04em;
+      top: 50%; transform: translateY(-52%);
+    }
+
+    /* Center stage */
+    .center-stage {
+      flex: 1;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    /* & sits ON TOP of the image — image shows through letter counters */
+    .mega-amp {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(180px, 38vw, 560px);
+      line-height: 0.82;
+      color: #111110;
+      position: absolute;
+      z-index: 3;
+      top: 50%;
+      left: 44%;
+      transform: translate(-50%, -50%);
+      user-select: none;
+    }
+
+    .hero-img-wrap {
+      position: relative; z-index: 1;
+      width: 70%;
+      aspect-ratio: 4/3;
+      flex-shrink: 0;
+    }
+
+    .hero-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    /* Explore strip */
+    .explore-strip {
+      flex-shrink: 0;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 9px 0 5px;
+    }
+
+    .explore-label {
+      font-size: 8.5px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .explore-line { width: 1px; height: 20px; background: #111110; }
+    .explore-plus { font-size: 17px; line-height: 1; margin-top: 2px; }
+
+    /* Project footer */
+    #project footer {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding: 6px 30px 20px;
+      flex-shrink: 0;
+    }
+
+    .meta-row { display: flex; gap: 14px; }
+
+    .meta-col {
+      display: flex; flex-direction: column; gap: 3.5px;
+      font-size: 7.5px; letter-spacing: 0.09em;
+      text-transform: uppercase; line-height: 1;
+    }
+
+    .project-desc {
+      max-width: 240px;
+      font-size: 7.5px; letter-spacing: 0.07em;
+      text-transform: uppercase; line-height: 1.7;
+      opacity: 0.62;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ HOME VIEW (dark) ═══════════════ -->
+<div id="home" class="view">
+
+  <nav>
+    <div class="logo" onclick="goProject()">Aristide</div>
+    <div class="ticks" id="home-ticks"></div>
+    <div class="about-link">About</div>
+  </nav>
+
+  <div class="gallery-area">
+    <div class="strips-row" id="strips"></div>
+  </div>
+
+  <footer>
+    <div class="footer-label">
+      Independent Developer<br>Available Apr. 2023
+    </div>
+    <div class="footer-label" style="text-align:right">
+      Email<br>Instagram<br>Twitter
+    </div>
+  </footer>
+
+</div>
+
+
+<!-- ═══════════════ PROJECT VIEW (light) ═══════════════ -->
+<div id="project" class="view hidden">
+
+  <nav>
+    <div class="logo" onclick="goHome()">Aristide</div>
+
+    <div class="counter-group">
+      <div class="counter-sep"></div>
+      <span>02</span>
+      <div class="counter-box"></div>
+      <span>30</span>
+      <div class="ticks" id="proj-ticks" style="margin-left:4px"></div>
+    </div>
+
+    <div class="about-link">About</div>
+  </nav>
+
+  <div class="project-stage">
+
+    <!-- Left panel: photo + P -->
+    <div class="side">
+      <div class="side-bg" style="background-image:url('https://picsum.photos/seed/portrait/240/700')"></div>
+      <div class="mega mega-P">P</div>
+    </div>
+
+    <!-- Centre: & + hero image -->
+    <div class="center-stage">
+      <div class="mega-amp">&amp;</div>
+      <div class="hero-img-wrap">
+        <img
+          src="https://picsum.photos/seed/sculpture/700/467"
+          alt="P&H — Photography"
+          style="filter:grayscale(85%) contrast(1.12) brightness(1.02)"
+        />
+      </div>
+    </div>
+
+    <!-- Right panel: photo + H -->
+    <div class="side">
+      <div class="side-bg" style="background-image:url('https://picsum.photos/seed/city/240/700')"></div>
+      <div class="mega mega-H">H</div>
+    </div>
+
+  </div>
+
+  <!-- Explore -->
+  <div class="explore-strip">
+    <div class="explore-label">Explore</div>
+    <div class="explore-line"></div>
+    <div class="explore-plus">+</div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-label">
+      Independent Developer<br>Available Apr. 2023
+    </div>
+
+    <div class="meta-row">
+      <div class="meta-col" style="opacity:.38">
+        <span>A</span><span>B</span><span>C</span><span>D</span>
+      </div>
+      <div class="meta-col" style="opacity:.52">
+        <span>Completed</span><span>Type</span><span>Role</span><span>Client</span>
+      </div>
+      <div class="meta-col" style="opacity:.75">
+        <span>May 2021</span><span>Photography</span><span>Fullstack Dev &amp; Motion</span><span>Paul &amp; Henriette</span>
+      </div>
+    </div>
+
+    <div class="project-desc">
+      Portfolio of Paul &amp; Henriette, a French photographers duo based in Paris.
+    </div>
+
+    <div class="footer-label" style="text-align:right">
+      Email<br>Instagram<br>Twitter
+    </div>
+  </footer>
+
+</div>
+
+
+<script>
+  /* ── Tick bars ─────────────────────────────── */
+  const HEIGHTS = [13,9,15,8,12,10,16,9,13,11,15,8,14,10,16,9,13,11,15,8,14,12,16,10,13,9,15,11,14,10];
+
+  function buildTicks(id, n) {
+    const el = document.getElementById(id);
+    for (let i = 0; i < n; i++) {
+      const b = document.createElement('div');
+      b.className = 'tick';
+      b.style.height = HEIGHTS[i % HEIGHTS.length] + 'px';
+      el.appendChild(b);
+    }
+  }
+
+  buildTicks('home-ticks', 30);
+  buildTicks('proj-ticks', 24);
+
+  /* ── Gallery strips ───────────────────────── */
+  // [width, picsum seed]
+  const STRIP_DATA = [
+    [72,'a1'],[62,'a2'],[75,'a3'],[68,'a4'],[83,'a5'],
+    [52,'a6'],[72,'a7'],[63,'a8'],[79,'a9'],[68,'a10'],
+    [58,'a11'],[78,'a12'],[72,'a13'],[62,'a14'],[82,'a15'],
+  ];
+
+  const container = document.getElementById('strips');
+  STRIP_DATA.forEach(([w, seed]) => {
+    const div = document.createElement('div');
+    div.className = 'strip';
+    div.style.width = w + 'px';
+
+    const img = document.createElement('img');
+    img.src = `https://picsum.photos/seed/${seed}/${w}/265`;
+    img.alt = '';
+
+    div.appendChild(img);
+    div.addEventListener('click', goProject);
+    container.appendChild(div);
+  });
+
+  /* ── View transitions ─────────────────────── */
+  function goProject() {
+    document.getElementById('home').classList.add('hidden');
+    document.getElementById('project').classList.remove('hidden');
+  }
+
+  function goHome() {
+    document.getElementById('project').classList.add('hidden');
+    document.getElementById('home').classList.remove('hidden');
+  }
+</script>
+
+</body>
+</html>
