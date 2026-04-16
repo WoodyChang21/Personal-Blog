@@ -1,172 +1,88 @@
-# CLAUDE.md — Personal-Blog (Claude Code Guide)
+# CLAUDE_DYNAMIC.md — Motion & Interactivity (Personal-Blog)
+
+Use this guide when the goal is to evolve the site from a **static, document-like feel** into a **more dynamic experience** with **animation, micro-interactions, and responsive motion**—without removing or hiding existing content.
+
+**Discovery:** Claude Code loads `CLAUDE.md` by default. Either merge relevant sections into `CLAUDE.md`, or reference this file in the task prompt (e.g. “Follow CLAUDE.md and CLAUDE_DYNAMIC.md”).
+
+---
 
 ## Objective
-When a user provides a style direction, design references, or example websites, update this React app’s UI/UX to match that style **without losing existing content, links, sections, or functionality**.
 
-This project is a personal AI portfolio/blog and must always continue to display the current information unless the user explicitly asks to change content.
-
----
-
-## Project Context
-
-### Stack
-- Vite + React (ESM)
-- Tailwind CSS v4 (`@tailwindcss/vite`)
-- Static deployment target: GitHub Pages (`base: /Personal-Blog/`)
-
-### Entry points
-- `src/main.jsx`
-- `src/App.jsx`
-- `src/pages/HomePage.jsx`
-
-### Core content source (single source of truth)
-- `src/data/content.js`
-
-### Major UI components
-- `src/components/Navbar.jsx`
-- `src/components/Hero.jsx`
-- `src/components/Marquee.jsx`
-- `src/components/AboutSection.jsx`
-- `src/components/SectionGroup.jsx`
-- `src/components/CategoryRow.jsx`
-- `src/components/ArticleCard.jsx`
-- `src/components/Footer.jsx`
-- UI primitives in `src/components/ui/*`
-
-### Styling foundation
-- `src/index.css` contains theme tokens/utilities/components and global layout conventions.
+- Add **purposeful motion**: scroll-linked reveals, hover states, staggered entrances, subtle parallax or section transitions, improved marquee/hero energy, and tasteful loading/idle polish.
+- Keep the app **fast, accessible, and content-complete**: every item in `src/data/content.js` must remain visible and linked as today unless the user explicitly asks to change copy or structure.
 
 ---
 
-## Non-Negotiable Rules
+## Project Context (align with CLAUDE.md)
 
-1. **Preserve information**
-   - Keep all existing sections and entries visible unless user explicitly requests removal.
-   - Do not drop project/article items, social links, resume link, or About copy by accident.
-   - Avoid shortening text content without permission.
-
-2. **Preserve data architecture**
-   - Keep `src/data/content.js` as the canonical content store.
-   - Prefer restyling components over hardcoding content into JSX.
-   - Keep object shapes stable unless migration is intentionally requested.
-
-3. **Preserve behavior**
-   - Navbar anchor navigation must continue to work.
-   - External links must remain valid and open safely (`target`, `rel` as appropriate).
-   - Visitor counter in footer (`useVisitorCount`) must remain functional unless user asks to remove/replace.
-   - Resume file access (`/resume.pdf`) must continue to work.
-
-4. **Do not rewrite into a single static HTML file**
-   - This codebase is a React app. Keep it component-based.
-
-5. **No unrequested feature creep**
-   - Implement requested style/system changes only.
-   - Do not add random new sections, fake metrics, fake testimonials, or placeholder portfolio items.
+- **Stack:** Vite + React, Tailwind CSS v4 (`@tailwindcss/vite`), GitHub Pages (`base: /Personal-Blog/` in `vite.config.js`).
+- **Layout & pages:** `src/pages/HomePage.jsx`, components under `src/components/`.
+- **Content:** `src/data/content.js` — single source of truth.
+- **Global CSS & keyframes:** `src/index.css` (e.g. existing `marquee-scroll` animation).
 
 ---
 
-## Style-Driven Redesign Workflow
+## Technical Strategy (prefer this order)
 
-When user supplies style notes or reference websites/images:
+1. **CSS-first**
+   - Use Tailwind utilities + `src/index.css` (`@layer components`, `@keyframes`) for transitions, transforms, opacity, and simple stagger via `animation-delay` or nth-child patterns.
+   - Prefer **GPU-friendly** properties: `transform`, `opacity`; avoid animating `width`/`height`/`top`/`left` on large regions when possible.
 
-1. **Extract style system**
-   - Identify typography, spacing scale, border radius, shadows, grid rhythm, color system, motion style, button/input patterns, and section composition.
+2. **React for stateful interaction only**
+   - Use small pieces of state for: mobile menu, open/close panels, “in view” toggles, reduced-motion branch.
+   - Prefer **`IntersectionObserver`** (via hook or `useEffect`) for scroll-triggered reveals instead of heavy scroll listeners on every frame.
 
-2. **Map style to current structure**
-   - Keep existing IA/content hierarchy:
-     - Navbar
-     - Hero
-     - Marquee/highlight strip
-     - About
-     - Deep Learning section group
-     - AI Agent Systems section group
-     - Footer/contact
-   - Re-theme components while retaining semantic structure and data bindings.
+3. **Optional libraries (only with user approval)**
+   - Do **not** add `framer-motion`, `motion`, `react-spring`, etc. unless the user explicitly allows a new dependency and you document why CSS alone is insufficient.
 
-3. **Implement incrementally**
-   - Prefer editing shared primitives and `index.css` tokens/utilities first.
-   - Then update section components.
-   - Keep responsive behavior strong at mobile, tablet, desktop breakpoints.
-
-4. **Visual Verification Loop (required)**
-   - After each implementation pass, capture updated screenshots of:
-     - full page (desktop + mobile width)
-     - key sections (Navbar, Hero, About, section cards, Footer)
-   - Compare screenshots against the provided references and list concrete mismatches in:
-     - spacing/padding/margins (px-level)
-     - typography (font size, weight, line-height, letter spacing)
-     - color/contrast (hex-level where possible)
-     - borders/radius/shadows
-     - layout alignment and responsive behavior
-   - Fix all identified mismatches before proceeding.
-   - Re-capture screenshots and compare again.
-   - Perform **at least 2 full compare/fix rounds**; continue until no major visual differences remain or user says stop.
-   - Do not claim completion after a single pass.
-
-5. **Functional + regression validation (required)**
-   - Run:
-     - `npm run build`
-   - Fix build errors before finishing.
-   - Check for regressions:
-     - missing sections/content
-     - broken links/anchors
-     - unreadable contrast
-     - overflow or mobile layout breaks
-     - broken visitor counter and resume link
-
-6. **Report clearly**
-   - Summarize style updates made.
-   - Include what mismatches were found and corrected in each verification round.
-   - Explicitly confirm what content/functionality was preserved.
----
-
-## Content Preservation Checklist (run mentally before finalizing)
-
-- [ ] `navigationLinks` still rendered
-- [ ] `heroActions` still rendered
-- [ ] `marqueeItems` still rendered
-- [ ] `introStats` still rendered
-- [ ] `deepLearningSections` items still rendered
-- [ ] `agentSections` items still rendered
-- [ ] `socialLinks` still rendered
-- [ ] About narrative text still present
-- [ ] Footer visitor count still displayed
-- [ ] Resume link still available
+4. **Existing motion**
+   - `src/components/Marquee.jsx` already uses inline `animation: marquee-scroll ...`. When enhancing, keep marquee **readable** and **non-seizure-inducing** (no extreme flashing; respect reduced motion).
 
 ---
 
-## Code Quality Expectations
+## Accessibility & UX (non-negotiable)
 
-- Prefer clear, composable JSX over duplication.
-- Keep accessibility reasonable:
-  - semantic headings and sections
-  - meaningful alt text
-  - keyboard reachable links/buttons
-- Keep class names maintainable; avoid chaotic one-off utility sprawl when a shared class/token is better.
-- Do not introduce new dependencies unless genuinely necessary and user-aligned.
+- **`prefers-reduced-motion`:** In `src/index.css` or per-component, use `@media (prefers-reduced-motion: reduce)` to **disable or greatly simplify** non-essential animations (e.g. disable infinite marquee or show static strip).
+- **Focus:** Keyboard users must see clear `:focus-visible` styles; do not remove focus rings without an equivalent.
+- **No motion-as-information-only:** Critical labels and CTAs must be understandable without animation.
+- **Performance:** Avoid layout thrash; test on mobile; keep **CLS** stable (reserve space; avoid jump on animation start).
 
 ---
 
-## If User Asks for “Make it like <site>”
-Translate visual language, not literal copy:
-- Recreate design patterns (layout rhythm, typography contrast, card styles, visual hierarchy)
-- Keep this project’s own content, identity, and links intact
-- Never scrape or copy proprietary text/assets verbatim
+## Concrete Feature Ideas (implement incrementally)
+
+| Area | Ideas |
+|------|--------|
+| **Hero** | Staggered fade/slide for headline, subcopy, buttons; subtle grid shift on hover |
+| **Navbar** | Smooth underline/opacity; drawer slide + backdrop fade for mobile menu |
+| **Sections** | Titles and rows animate in when scrolled into view; subtle divider motion |
+| **Cards** | `ArticleCard.jsx`: hover lift/shadow; optional stagger when parent enters viewport |
+| **About** | Portrait subtle scale on hover; stat panels stagger in |
+| **Footer** | Social link micro-motion; avoid extra API load for “count up” unless approved |
+
+---
+
+## Implementation Checklist
+
+- [ ] No removal of content from `content.js`; no dropped sections on `HomePage.jsx`.
+- [ ] Animations degradable via `prefers-reduced-motion`.
+- [ ] No new animation dependency unless user approved.
+- [ ] `npm run build` passes after changes.
+- [ ] Anchors (`#about`, `#projects`, `#agents`, `#contact`), external links, resume, visitor counter **behavior** preserved.
 
 ---
 
 ## Definition of Done
-A redesign task is complete only when:
-1. Requested style direction is visibly applied across the app,
-2. Existing information remains intact and discoverable,
-3. Build succeeds (`npm run build`),
-4. No major responsive regressions are introduced.
+
+1. The site **feels more dynamic** with intentional motion.
+2. **All prior information** still displays; links work.
+3. **Reduced-motion** users get a calm, usable experience.
+4. **Build succeeds**; no major mobile/desktop regressions.
 
 ---
 
-## Notes for Future Edits
-If a redesign requires structural schema changes in `content.js`, perform a safe migration:
-- update data shape
-- update all consumers
-- verify every item still renders
-- mention migration in final summary
+## Out of Scope (unless user explicitly requests)
+
+- Replacing the React app with a standalone static HTML demo.
+- CMS/API migration without a plan.
+- Autoplay video, heavy WebGL, or third-party widgets for “dynamics.”

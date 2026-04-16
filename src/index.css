@@ -88,7 +88,7 @@
   .eyebrow {
     display: inline-block;
     font-family: 'Space Mono', monospace;
-    font-size: 8.5px;
+    font-size: 10px;
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.28em;
@@ -97,7 +97,7 @@
 
   .footer-label {
     font-family: 'Space Mono', monospace;
-    font-size: 8px;
+    font-size: 9.5px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     line-height: 1.85;
@@ -215,6 +215,226 @@
     background-color: rgba(255, 255, 255, 0.4);
   }
 }
+
+/* ── Reveal animations ───────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-left.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Mobile menu entrance ────────────── */
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.mobile-menu-enter {
+  animation: slide-down 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Article card hover ──────────────── */
+.article-card {
+  position: relative;
+  transition: background-color 0.22s ease;
+}
+
+.article-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.article-card:hover::before { opacity: 0.3; }
+
+.article-card-dark::before  { background: #dddcd4; }
+.article-card-dark:hover    { background-color: rgba(221,220,212,0.04); }
+
+.article-card-light::before { background: #111110; }
+.article-card-light:hover   { background-color: rgba(17,17,16,0.035); }
+
+/* Title link underline on hover */
+.article-card .card-title-link {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 0.25s ease;
+}
+.article-card:hover .card-title-link {
+  background-size: 100% 1px;
+}
+
+/* ── Portrait hover ──────────────────── */
+.portrait-hover {
+  overflow: hidden;
+}
+.portrait-hover img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.5s ease;
+}
+.portrait-hover:hover img {
+  transform: scale(1.03);
+  filter: grayscale(0%) !important;
+}
+
+/* ── Nav link underline ──────────────── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.22s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* ── Footer social link ──────────────── */
+.footer-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+.footer-social:hover {
+  color: #dddcd4 !important;
+  transform: translateX(4px);
+}
+
+/* ── Collapsible folder card ─────────── */
+.collapsible-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.collapsible-grid.is-expanded {
+  grid-template-rows: 1fr;
+}
+
+.collapsible-inner {
+  overflow: hidden;
+}
+
+/* Folder header button */
+.folder-card-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.22s ease;
+}
+
+/* Chevron that rotates on expand */
+.folder-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  font-size: 12px;
+  flex-shrink: 0;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 0.22s ease,
+              color 0.22s ease;
+  opacity: 0.5;
+}
+
+.folder-chevron.is-expanded {
+  transform: rotate(180deg);
+  opacity: 0.9;
+}
+
+/* Folder card item-count badge */
+.folder-count-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border: 1px solid currentColor;
+  opacity: 0.4;
+  white-space: nowrap;
+}
+
+/* ── Reduced motion (a11y) ───────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .mobile-menu-enter {
+    animation: none;
+  }
+
+  .portrait-hover img {
+    transition: none;
+  }
+
+  .nav-link::after,
+  .article-card,
+  .article-card::before,
+  .footer-social {
+    transition: none;
+  }
+
+  .article-card .card-title-link {
+    background-image: none;
+  }
+
+  .marquee-track {
+    animation-play-state: paused !important;
+  }
+
+  .collapsible-grid {
+    transition: none;
+  }
+
+  .folder-chevron {
+    transition: none;
+  }
+}
+
+/* ─────────────────────────────────────── */
 
 @keyframes marquee-scroll {
   0%   { transform: translateX(0); }

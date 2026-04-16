@@ -1,11 +1,14 @@
+import { useInView } from '../hooks/useInView';
 import { useVisitorCount } from '../hooks/useVisitorCount';
 
 function Footer({ socialLinks }) {
   const visitorCount = useVisitorCount();
+  const [ref, inView] = useInView({ threshold: 0.2 });
 
   return (
     <footer
       id="contact"
+      ref={ref}
       style={{
         backgroundColor: '#181816',
         color: '#dddcd4',
@@ -24,14 +27,20 @@ function Footer({ socialLinks }) {
           gap: 24,
         }}
       >
-        {/* Left: identity + availability */}
-        <div className="footer-label" style={{ color: 'rgba(221,220,212,0.55)' }}>
+        {/* Left: identity */}
+        <div
+          className={`footer-label reveal${inView ? ' in-view' : ''}`}
+          style={{ '--reveal-delay': '0ms', color: 'rgba(221,220,212,0.55)' }}
+        >
           AI Engineer<br />
           University of Toronto — M.Eng.
         </div>
 
         {/* Center: visitor counter */}
-        <div style={{ textAlign: 'center' }}>
+        <div
+          className={`reveal${inView ? ' in-view' : ''}`}
+          style={{ '--reveal-delay': '120ms', textAlign: 'center' }}
+        >
           <p
             style={{
               fontFamily: "'Space Mono', monospace",
@@ -57,22 +66,25 @@ function Footer({ socialLinks }) {
         </div>
 
         {/* Right: social links */}
-        <div className="footer-label" style={{ textAlign: 'right' }}>
+        <div
+          className={`footer-label reveal${inView ? ' in-view' : ''}`}
+          style={{ '--reveal-delay': '80ms', textAlign: 'right' }}
+        >
           {socialLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               target={link.href.startsWith('http') ? '_blank' : undefined}
               rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+              className="footer-social"
               style={{
-                display: 'block',
+                display: 'flex',
+                justifyContent: 'flex-end',
                 color: 'rgba(221,220,212,0.55)',
                 textDecoration: 'none',
-                transition: 'opacity 0.18s ease',
                 cursor: 'pointer',
+                lineHeight: 1.85,
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(221,220,212,0.55)')}
             >
               {link.label}
             </a>

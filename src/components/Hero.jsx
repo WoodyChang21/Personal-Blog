@@ -1,7 +1,19 @@
+import { useEffect, useState } from 'react';
 import { heroActions } from '../data/content';
 import ActionButton from './ui/ActionButton';
 
 function Hero() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // Trigger staggered entrance on first paint
+    const raf = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  const cls = (delay) =>
+    `reveal${mounted ? ' in-view' : ''}`;
+
   return (
     <header
       id="top"
@@ -14,13 +26,19 @@ function Hero() {
 
         {/* Top: eyebrow + title */}
         <div>
-          <span className="eyebrow" style={{ marginBottom: 28, display: 'block' }}>
-            Building systems that learn and systems that act
+          <span
+            className={cls(0)}
+            style={{ '--reveal-delay': '0ms', marginBottom: 28, display: 'block' }}
+          >
+            <span className="eyebrow">
+              Building systems that learn and systems that act
+            </span>
           </span>
 
           <h1
-            className="display-title"
+            className={`display-title ${cls(1)}`}
             style={{
+              '--reveal-delay': '120ms',
               fontSize: 'clamp(4.5rem, 12vw, 10rem)',
               color: '#dddcd4',
               marginBottom: 40,
@@ -31,10 +49,21 @@ function Hero() {
           </h1>
 
           {/* Thin separator */}
-          <div style={{ width: '100%', height: 1, backgroundColor: 'rgba(221,220,212,0.12)', marginBottom: 40 }} />
+          <div
+            className={cls(2)}
+            style={{
+              '--reveal-delay': '200ms',
+              width: '100%',
+              height: 1,
+              backgroundColor: 'rgba(221,220,212,0.12)',
+              marginBottom: 40,
+            }}
+          />
 
           <p
+            className={cls(3)}
             style={{
+              '--reveal-delay': '280ms',
               fontFamily: "'Space Mono', monospace",
               fontSize: 'clamp(1rem, 2.2vw, 1.35rem)',
               color: '#dddcd4',
@@ -49,7 +78,9 @@ function Hero() {
           </p>
 
           <p
+            className={cls(4)}
             style={{
+              '--reveal-delay': '340ms',
               fontFamily: "'Space Mono', monospace",
               fontSize: 12,
               color: '#dddcd4',
@@ -63,7 +94,10 @@ function Hero() {
             Minimal write-ups. Reproducible code. Practical lessons.
           </p>
 
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <div
+            className={cls(5)}
+            style={{ '--reveal-delay': '420ms', display: 'flex', gap: 12, flexWrap: 'wrap' }}
+          >
             {heroActions.map((action) => (
               <ActionButton
                 key={action.label}
@@ -77,7 +111,10 @@ function Hero() {
         </div>
 
         {/* Bottom: Research / Build / Ship tag */}
-        <div style={{ marginTop: 60, display: 'flex', justifyContent: 'flex-end' }}>
+        <div
+          className={cls(6)}
+          style={{ '--reveal-delay': '520ms', marginTop: 60, display: 'flex', justifyContent: 'flex-end' }}
+        >
           <span
             style={{
               fontFamily: "'Space Mono', monospace",

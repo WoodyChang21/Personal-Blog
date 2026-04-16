@@ -7,7 +7,7 @@ function getItemKind(item) {
   return 'Project';
 }
 
-function ArticleCard({ item, theme = 'light', isFirst = false }) {
+function ArticleCard({ item, theme = 'light', isFirst = false, index = 0, inView = false }) {
   const isDark = theme === 'dark';
   const hasGithubLink = Boolean(item.githubHref);
   const kindLabel = getItemKind(item);
@@ -44,9 +44,13 @@ function ArticleCard({ item, theme = 'light', isFirst = false }) {
     ? { ...btnBase, borderColor: 'rgba(221,220,212,0.4)', backgroundColor: 'transparent', color: '#dddcd4' }
     : { ...btnBase, borderColor: 'rgba(17,17,16,0.35)', backgroundColor: 'transparent', color: '#111110' };
 
+  const revealDelay = 80 + index * 100;
+
   return (
     <article
+      className={`article-card ${isDark ? 'article-card-dark' : 'article-card-light'} reveal${inView ? ' in-view' : ''}`}
       style={{
+        '--reveal-delay': `${revealDelay}ms`,
         borderBottom: `1px solid ${borderColor}`,
         borderTop: isFirst ? `1px solid ${borderColor}` : undefined,
         padding: '22px 0',
@@ -76,6 +80,7 @@ function ArticleCard({ item, theme = 'light', isFirst = false }) {
             href={item.href}
             target="_blank"
             rel="noreferrer"
+            className="card-title-link"
             style={{ display: 'inline-block', color: titleColor }}
           >
             <h4
@@ -97,7 +102,7 @@ function ArticleCard({ item, theme = 'light', isFirst = false }) {
           <p
             style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: 10,
+              fontSize: 11,
               lineHeight: 1.7,
               color: metaColor,
               marginTop: 8,
@@ -111,7 +116,7 @@ function ArticleCard({ item, theme = 'light', isFirst = false }) {
           <p
             style={{
               fontFamily: "'Space Mono', monospace",
-              fontSize: 12,
+              fontSize: 13,
               lineHeight: 1.85,
               color: descColor,
               marginTop: 12,
@@ -125,11 +130,61 @@ function ArticleCard({ item, theme = 'light', isFirst = false }) {
         {/* CTA button */}
         <div style={{ flexShrink: 0, display: 'flex', alignItems: 'flex-start', paddingTop: 2 }}>
           {hasGithubLink ? (
-            <a href={item.githubHref} target="_blank" rel="noreferrer" style={btnSolid}>
+            <a
+              href={item.githubHref}
+              target="_blank"
+              rel="noreferrer"
+              style={btnSolid}
+              onMouseEnter={(e) => {
+                if (isDark) {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = '#dddcd4';
+                } else {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = '#111110';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (isDark) {
+                  e.currentTarget.style.backgroundColor = '#dddcd4';
+                  e.currentTarget.style.color = '#181816';
+                } else {
+                  e.currentTarget.style.backgroundColor = '#111110';
+                  e.currentTarget.style.color = '#f0ede8';
+                }
+              }}
+            >
               {item.githubLabel}
             </a>
           ) : (
-            <a href={item.href} target="_blank" rel="noreferrer" style={btnOutline}>
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              style={btnOutline}
+              onMouseEnter={(e) => {
+                if (isDark) {
+                  e.currentTarget.style.borderColor = '#dddcd4';
+                  e.currentTarget.style.backgroundColor = '#dddcd4';
+                  e.currentTarget.style.color = '#181816';
+                } else {
+                  e.currentTarget.style.borderColor = '#111110';
+                  e.currentTarget.style.backgroundColor = '#111110';
+                  e.currentTarget.style.color = '#f0ede8';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (isDark) {
+                  e.currentTarget.style.borderColor = 'rgba(221,220,212,0.4)';
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = '#dddcd4';
+                } else {
+                  e.currentTarget.style.borderColor = 'rgba(17,17,16,0.35)';
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = '#111110';
+                }
+              }}
+            >
               {item.githubLabel ?? 'Read Article'}
             </a>
           )}
