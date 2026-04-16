@@ -117,21 +117,26 @@ function SectionHeader({ kicker, title, description, theme = 'light', isExpanded
             </span>
           </div>
 
-          {/* Expand / collapse hint */}
-          <p
+          {/* Clear CTA button */}
+          <div
             className={rv}
-            style={{
-              '--reveal-delay': '300ms',
-              fontFamily: "'Space Mono', monospace",
-              fontSize: 9,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: isDark ? 'rgba(221,220,212,0.35)' : 'rgba(17,17,16,0.38)',
-              marginTop: 28,
-            }}
+            style={{ '--reveal-delay': '300ms', marginTop: 36 }}
           >
-            {isExpanded ? '— Click to collapse' : '— Click to explore'}
-          </p>
+            <span
+              className={`action-button ${
+                isDark ? 'action-button-outline' : 'action-button-outline-ink'
+              }`}
+              style={{
+                pointerEvents: 'none',
+                display: 'inline-flex',
+                gap: 10,
+                fontSize: 10,
+                letterSpacing: '0.2em',
+              }}
+            >
+              {isExpanded ? '↑ Collapse Section' : '↓ Explore Topics'}
+            </span>
+          </div>
 
         </div>
       </div>
