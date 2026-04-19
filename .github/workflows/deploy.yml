@@ -36,6 +36,9 @@ jobs:
 
       - name: Build site
         run: npm run build
+        env:
+          VITE_OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
+          VITE_OPENAI_MODEL: ${{ secrets.VITE_OPENAI_MODEL }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
