@@ -54,7 +54,7 @@ function Navbar() {
             onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
           >
-            Woody Chang
+            AI Journey
           </a>
 
           {/* Tick bar — desktop only */}

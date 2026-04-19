@@ -45,7 +45,7 @@ function Hero() {
               maxWidth: '10ch',
             }}
           >
-            AI Journey
+            Woody Chang
           </h1>
 
           {/* Thin separator */}
@@ -73,8 +73,9 @@ function Hero() {
               marginBottom: 16,
             }}
           >
-            A living log of engineering work from deep learning projects in language
-            and vision to building LLM agents step by step.
+            AI Engineer and M.Eng. graduate from the University of Toronto —
+            documenting deep learning projects in language and vision, and building
+            production-grade LLM agent systems step by step.
           </p>
 
           <p
