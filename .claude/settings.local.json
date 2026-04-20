@@ -6,7 +6,8 @@
       "Bash(node -e ' *)",
       "Bash(npm install *)",
       "Bash(node screenshot-sections.mjs)",
-      "Bash(node ss-final.mjs)"
+      "Bash(node ss-final.mjs)",
+      "Skill(update-config)"
     ]
   }
 }
