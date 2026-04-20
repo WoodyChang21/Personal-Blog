@@ -131,6 +131,7 @@ function ChatWidget() {
   const [input, setInput]       = useState('');
   const [loading, setLoading]   = useState(false);
   const [easterEgg, setEasterEgg] = useState(false);
+  const [isOverContact, setIsOverContact] = useState(false);
   const easterEggTimer = useRef(null);
 
   const messagesEndRef = useRef(null);
@@ -145,6 +146,21 @@ function ChatWidget() {
   useEffect(() => {
     if (isOpen) setTimeout(() => inputRef.current?.focus(), 280);
   }, [isOpen]);
+
+  useEffect(() => {
+    const contactEl = document.getElementById('contact');
+    if (!contactEl || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsOverContact(entry.isIntersecting);
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(contactEl);
+    return () => observer.disconnect();
+  }, []);
 
   const send = useCallback(async () => {
     const text = input.trim();
@@ -200,7 +216,7 @@ function ChatWidget() {
   };
 
   return (
-    <div className="chat-widget-root">
+    <div className={`chat-widget-root${isOverContact ? ' is-elevated' : ''}`}>
       {/* Panel */}
       <div
         className={`chat-panel${isOpen ? ' is-open' : ''}`}

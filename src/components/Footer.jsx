@@ -37,9 +37,9 @@ function Footer({ socialLinks }) {
             Contact
           </span>
 
-          {/* Title + copy + links — all in one compact row */}
+          {/* Title + centered CTAs + copy */}
           <div
-            className={`flex flex-wrap items-center justify-between gap-8 ${rv(1)}`}
+            className={`grid items-center gap-8 lg:grid-cols-[auto_minmax(0,1fr)] ${rv(1)}`}
             style={{ '--reveal-delay': '80ms' }}
           >
             <h2
@@ -54,48 +54,50 @@ function Footer({ socialLinks }) {
               Get In Touch
             </h2>
 
-            <p
-              className={rv(2)}
-              style={{
-                '--reveal-delay': '140ms',
-                fontFamily: "'Space Mono', monospace",
-                fontSize: 12.5,
-                lineHeight: 1.8,
-                color: 'rgba(221,220,212,0.55)',
-                maxWidth: '42ch',
-                flex: '1 1 280px',
-              }}
-            >
-              Open to new opportunities, research collaborations, and
-              conversations about AI engineering and production systems.
-            </p>
+            <div className="space-y-4">
+              {/* CTA + social links */}
+              <div
+                className={`flex flex-wrap items-center justify-center gap-3 ${rv(3)}`}
+                style={{ '--reveal-delay': '200ms' }}
+              >
+                {emailLink && (
+                  <a
+                    href={emailLink.href}
+                    className="action-button action-button-solid"
+                    style={{ fontSize: 9.5, letterSpacing: '0.2em' }}
+                  >
+                    Send an Email →
+                  </a>
+                )}
+                {otherLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                    className="action-button action-button-outline"
+                    style={{ fontSize: 9.5, letterSpacing: '0.2em' }}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
 
-            {/* CTA + social links */}
-            <div
-              className={`flex flex-wrap items-center gap-3 ${rv(3)}`}
-              style={{ '--reveal-delay': '200ms', flexShrink: 0 }}
-            >
-              {emailLink && (
-                <a
-                  href={emailLink.href}
-                  className="action-button action-button-solid"
-                  style={{ fontSize: 9.5, letterSpacing: '0.2em' }}
-                >
-                  Send an Email →
-                </a>
-              )}
-              {otherLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={link.href.startsWith('http') ? '_blank' : undefined}
-                  rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-                  className="action-button action-button-outline"
-                  style={{ fontSize: 9.5, letterSpacing: '0.2em' }}
-                >
-                  {link.label}
-                </a>
-              ))}
+              <p
+                className={`${rv(2)} mx-auto`}
+                style={{
+                  '--reveal-delay': '140ms',
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: 12.5,
+                  lineHeight: 1.8,
+                  color: 'rgba(221,220,212,0.55)',
+                  maxWidth: '56ch',
+                  textAlign: 'center',
+                }}
+              >
+                Open to new opportunities, research collaborations, and
+                conversations about AI engineering and production systems.
+              </p>
             </div>
           </div>
 
@@ -109,10 +111,11 @@ function Footer({ socialLinks }) {
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           paddingTop: 20,
           paddingBottom: 20,
-          gap: 16,
+          gap: 28,
+          textAlign: 'center',
         }}
       >
         <div className="footer-label" style={{ color: 'rgba(221,220,212,0.45)' }}>
