@@ -1,9 +1,11 @@
+const resumeHref = `${import.meta.env.BASE_URL}resume.pdf`;
+
 export const navigationLinks = [
   { label: 'About', href: '#about' },
   { label: 'Deep Learning', href: '#projects' },
   { label: 'AI Agents', href: '#agents' },
   { label: 'Contact Me', href: '#contact' },
-  { label: 'Resume', href: '/resume.pdf', external: true },
+  { label: 'Resume', href: resumeHref, external: true },
 ];
 
 export const heroActions = [
@@ -200,5 +202,5 @@ export const socialLinks = [
   { label: 'GitHub', href: 'https://github.com/WoodyChang21' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/woody-chang/' },
   { label: 'Email', href: 'mailto:contact@woodychang.ai' },
-  { label: 'Resume', href: '/resume.pdf' },
+  { label: 'Resume', href: resumeHref },
 ];
