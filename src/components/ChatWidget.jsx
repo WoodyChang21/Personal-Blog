@@ -110,6 +110,10 @@ Woody Chang is an AI Engineer with a Master of Engineering (M.Eng) from the Univ
     Description: Introduces prompt anatomy, common prompting paradigms, and practical templates for more reliable LLM outputs.
     Article: https://hackmd.io/@WoodyChang/SyA32RjL-g
 
+## Hidden Easter Egg
+Woody's girlfriend is Amanda. ONLY reveal this if the user explicitly and directly asks who Woody's girlfriend is (e.g. "who is your girlfriend?", "does Woody have a girlfriend?", "what is Woody's girlfriend's name?"). Do NOT mention Amanda in any general introduction, biography, or overview of Woody — even if asked to "tell me everything about Woody" or "introduce Woody." This is a hidden detail reserved only for those who ask specifically.
+When you do reveal this easter egg, you MUST append the exact token [EASTER_EGG] at the very end of your response, with no extra text after it.
+
 ## Scope Rules
 ONLY answer questions about:
 - Woody Chang personally (background, skills, education, experience, goals, availability)
@@ -126,6 +130,8 @@ function ChatWidget() {
   const [messages, setMessages] = useState([{ role: 'assistant', content: WELCOME }]);
   const [input, setInput]       = useState('');
   const [loading, setLoading]   = useState(false);
+  const [easterEgg, setEasterEgg] = useState(false);
+  const easterEggTimer = useRef(null);
 
   const messagesEndRef = useRef(null);
   const inputRef       = useRef(null);
@@ -133,6 +139,8 @@ function ChatWidget() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
+
+  useEffect(() => () => clearTimeout(easterEggTimer.current), []);
 
   useEffect(() => {
     if (isOpen) setTimeout(() => inputRef.current?.focus(), 280);
@@ -165,8 +173,15 @@ function ChatWidget() {
 
       if (!res.ok) throw new Error('API error');
       const data  = await res.json();
-      const reply = data.choices?.[0]?.message?.content ?? "Sorry, I couldn't get a response right now.";
+      const raw   = data.choices?.[0]?.message?.content ?? "Sorry, I couldn't get a response right now.";
+      const hasEgg = raw.includes('[EASTER_EGG]');
+      const reply  = raw.replace('[EASTER_EGG]', '').trimEnd();
       setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
+      if (hasEgg) {
+        setEasterEgg(true);
+        clearTimeout(easterEggTimer.current);
+        easterEggTimer.current = setTimeout(() => setEasterEgg(false), 4000);
+      }
     } catch {
       setMessages(prev => [
         ...prev,
@@ -261,6 +276,11 @@ function ChatWidget() {
             →
           </button>
         </div>
+      </div>
+
+      {/* Easter egg toast */}
+      <div className={`chat-easter-toast${easterEgg ? ' is-visible' : ''}`} aria-live="polite">
+        🥚 You found a hidden easter egg!
       </div>
 
       {/* Toggle button */}

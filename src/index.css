@@ -674,6 +674,29 @@
   text-transform: uppercase;
 }
 
+.chat-easter-toast {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #181816;
+  background-color: #dddcd4;
+  padding: 9px 16px;
+  border: 1px solid rgba(221, 220, 212, 0.5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition:
+    opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chat-easter-toast.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 @media (max-width: 420px) {
   .chat-widget-root { bottom: 16px; right: 16px; }
   .chat-panel       { height: 420px; }
