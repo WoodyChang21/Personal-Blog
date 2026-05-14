@@ -2,6 +2,7 @@ const resumeHref = `${import.meta.env.BASE_URL}resume.pdf`;
 
 export const navigationLinks = [
   { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Deep Learning', href: '#projects' },
   { label: 'AI Agents', href: '#agents' },
   { label: 'Contact Me', href: '#contact' },
@@ -9,6 +10,7 @@ export const navigationLinks = [
 ];
 
 export const heroActions = [
+  { label: 'Experience', href: '#experience', variant: 'outline' },
   { label: 'DL Projects', href: '#projects', variant: 'solid' },
   { label: 'AI Agents', href: '#agents', variant: 'outline' },
 ];
@@ -18,6 +20,72 @@ export const marqueeItems = [
   'Building Agents',
   'Open Source',
   'Learning by Doing',
+];
+
+export const workExperience = [
+  {
+    id: 'retailingdata',
+    role: 'AI Intern',
+    company: 'Ret[AI]ling Data',
+    period: 'June 2025 – Dec 2025',
+    type: 'Internship',
+    stack: ['LangGraph', 'FastAPI', 'MongoDB Atlas', 'RAG', 'Redis', 'Docker', 'RBAC'],
+    bullets: [
+      'Migrated a tightly coupled RAG pipeline to a modular LangGraph agent architecture, enabling rapid chatbot deployment via data configuration and domain-specific system prompts.',
+      'Built an MVP multi-agent AI system capable of generating interactive graphs from the database based on natural language input.',
+      'Designed a high-precision RAG pipeline (MongoDB Atlas Vector Search + OpenAI embeddings) achieving 90–93% retrieval precision on 2,000+ QA pairs, tracked with RAGAS metrics.',
+      'Implemented a containerized FastAPI backend serving 1,000+ daily users with end-to-end latency under 300 ms using Redis for session state and MongoDB for per-user persistence.',
+      'Implemented RBAC for a third-party messaging chatbot, combining email verification with role enforcement to prevent unauthorized access in multi-tenant deployments.',
+    ],
+    defaultOpen: true,
+  },
+  {
+    id: 'anyload',
+    role: 'Software Intern',
+    company: 'Anyload Weigh & Measure',
+    period: 'Sept 2022 – Dec 2022',
+    type: 'Internship',
+    stack: ['Python', 'Full Stack', 'Google Maps API', 'MySQL'],
+    bullets: [
+      'Assisted in the development of an internal full-stack app used by the sales team to help them with automatic order processing.',
+      'Implemented a location feature with Google Maps API for the sales team to select the most suitable inventory locations for orders.',
+      'Developed a comprehensive MySQL table establishing relations between customer data and order details for order tracking.',
+      'Programmed an automated inventory update mechanism triggered on every order, leading to more effective stock management.',
+    ],
+    defaultOpen: false,
+  },
+  {
+    id: 'magictech',
+    role: 'Software Backend Intern',
+    company: 'Magic Technology',
+    period: 'May 2021 – Aug 2021',
+    type: 'Internship',
+    stack: ['Python', 'AWS Lambda', 'AWS API Gateway', 'AWS SNS', 'REST API', 'MySQL'],
+    bullets: [
+      'Used Python CSV reading and writing logic to implement an intuitive file input feature, enabling the sales team to update the inventory.',
+      'Created a RESTful API with AWS API Gateway integrated with AWS Lambda to facilitate reliable data interactions for the frontend application.',
+      'Implemented an intuitive cost estimation tool that calculates prices by entering product serial numbers and total weight, enhancing the sales team\'s efficiency.',
+      'Developed a real-time order completion alert system utilizing AWS Simple Notification Service (SNS) to trigger email notifications to subscribed sales team members.',
+    ],
+    defaultOpen: false,
+  },
+];
+
+export const education = [
+  {
+    id: 'uoft',
+    degree: 'M.Eng. — Data Analysis & Machine Learning',
+    institution: 'University of Toronto',
+    year: '2026',
+    location: 'Toronto, ON',
+  },
+  {
+    id: 'ubc',
+    degree: 'B.A.Sc. — Electrical Engineering',
+    institution: 'University of British Columbia',
+    year: '2024',
+    location: 'Vancouver, BC',
+  },
 ];
 
 export const introStats = [

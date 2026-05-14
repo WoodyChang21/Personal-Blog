@@ -5,12 +5,15 @@ import Hero from '../components/Hero';
 import Marquee from '../components/Marquee';
 import Navbar from '../components/Navbar';
 import SectionGroup from '../components/SectionGroup';
+import WorkExperienceSection from '../components/WorkExperienceSection';
 import {
   agentSections,
   deepLearningSections,
+  education,
   introStats,
   marqueeItems,
   socialLinks,
+  workExperience,
 } from '../data/content';
 
 function HomePage() {
@@ -21,6 +24,7 @@ function HomePage() {
         <Hero />
         <Marquee items={marqueeItems} />
         <AboutSection stats={introStats} />
+        <WorkExperienceSection jobs={workExperience} education={education} />
         <SectionGroup
           id="projects"
           kicker="Chapter 01"
